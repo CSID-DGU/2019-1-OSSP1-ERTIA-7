@@ -5,17 +5,17 @@
     </v-flex>
 
     <v-flex xs2 sm2
-    v-for="card in cards"
-    :key="card.title"
+    v-for="trashbin in trashbins"
+    :key="trashbin.title"
     class="ml-2">
       <v-card >
         <v-card-title primary-title>
           <div>
-            <h3 class="headline mb-0">{{card.title}}</h3>
+            <h3 class="headline mb-0">{{trashbin.title}}</h3>
           </div>
         </v-card-title>
         <div>
-          <h4 class="ml-3 mb-0">위치: {{card.location}}</h4>
+          <h4 class="ml-3 mb-0">위치: {{trashbin.location}}</h4>
         </div>
 
         <v-card-actions>
@@ -28,15 +28,22 @@
 </template>
 
 <script>
+  import axios from 'axios'
   export default {
     data () {
       return {
-        cards:[
-          {title: 'bin1', location: '중랑구'},
-          {title: 'bin2', location: '중구'},
-          {title: 'bin3', location: '동대문구'}
-        ]
+        trashbins: []
         }
+    },
+    mounted () {
+      axios.get('http://localhost:3000/api/trashbin')
+        .then((r) => {
+          this.trashbins = r.data.trashbins
+          console.log(r)
+        })
+        .catch((e) => {
+          console.error(e.message)
+        })
     }
   }
 </script>
