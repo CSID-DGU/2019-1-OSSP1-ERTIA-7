@@ -15,7 +15,7 @@
       return {
         main:"/Main",
         user:"/user"
-        
+
       }
     }
   }
