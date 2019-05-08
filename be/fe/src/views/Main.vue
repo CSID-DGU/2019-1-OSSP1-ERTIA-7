@@ -1,7 +1,15 @@
 <template>
   <v-layout row wrap>
-
-
+<v-snackbar
+      v-model="snackbar"
+      absolute
+      top
+      right
+      color="success"
+    >
+      <span>성공적으로 추가되었습니다!</span>
+      <v-icon dark>check_circle</v-icon>
+  </v-snackbar>
 <!-- 쓰레기통 추가 dialog -->
    <v-dialog v-model="addDL" persistent max-width="600px">
      <template v-slot:activator="{ on }">
@@ -9,6 +17,7 @@
        <v-btn color="teal" style="font-weight: bold" dark  v-on="on">쓰레기통 추가</v-btn>
        </v-flex>
      </template>
+     <v-form ref="form" @submit.prevent="submit">
      <v-card>
        <v-card-title>
          <span class="headline">쓰레기통 정보</span>
@@ -17,30 +26,46 @@
          <v-container grid-list-md>
            <v-layout wrap>
              <v-flex xs12 sm12>
-               <v-text-field label="쓰레기통 이름" required></v-text-field>
+               <v-text-field 
+               ref="name"
+               v-model="name"
+               label="쓰레기통 이름" 
+               required 
+               ></v-text-field>
              </v-flex>
              <v-flex xs12 sm12>
                <v-select
+               ref="district"
+                v-model="district"
                  :items="['강남구', '강동구', '강북구', '강서구', '관악구', '광진구', '구로구', '금천구', '노원구', '도봉구', '동대문구', '동작구', '마포구', '서대문구', '서초구', '성동구', '성북구', '송파구', '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구']"
                  label="쓰레기통 위치"
                  required
                ></v-select>
              </v-flex>
              <v-flex xs6 sm6>
-               <v-text-field label="좌표 위도" required></v-text-field>
+               <v-text-field
+               ref="lat"
+               v-model="lat"
+                label="좌표 위도"
+                required></v-text-field>
              </v-flex>
              <v-flex xs6 sm6>
-               <v-text-field label="좌표 경도" required></v-text-field>
+               <v-text-field
+               ref="long"
+               v-model="long"
+                label="좌표 경도" 
+                required></v-text-field>
              </v-flex>
            </v-layout>
          </v-container>
        </v-card-text>
        <v-card-actions>
          <v-spacer></v-spacer>
-         <v-btn style="font-weight: bold" color="blue darken-1" flat @click="addDL = false">저장</v-btn>
+         <v-btn style="font-weight: bold" color="blue darken-1" flat @click="addSubmit">저장</v-btn>
          <v-btn style="font-weight: bold" flat @click="addDL = false">취소</v-btn>
        </v-card-actions>
      </v-card>
+     </v-form>
    </v-dialog>
 
 
@@ -117,7 +142,7 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                     <v-btn color="red" style="font-weight: bold" flat @click="delDL = false">삭제</v-btn>
-                  <v-btn style="font-weight: bold"flat @click="delDL = false">취소</v-btn>
+                  <v-btn style="font-weight: bold" flat @click="delDL = false">취소</v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -128,15 +153,19 @@
 </template>
 
 <script>
+  import firebase from 'firebase'
   import axios from 'axios'
+  import { validationMixin } from 'vuelidate'
+  import { required, maxLength, email } from 'vuelidate/lib/validators'
+
   export default {
     data () {
       return {
-        trashbins: [],
         addDL: false,
         editDL : false,
-        delDL : false
-        }
+        delDL : false,
+        snackbar : false
+      }
     },
     mounted () {
       axios.get('http://localhost:3000/api/trashbin')
@@ -147,9 +176,57 @@
         .catch((e) => {
           console.error(e.message)
         })
+    },
+    mixins: [validationMixin],
+
+    validations: {
+      name: {required},
+      district: {required}
+    },
+    computed: {
+      form () {
+        return {
+          name: this.name,
+          district: this.district,
+          locationLat: this.lat,
+          locationLong: this.long
+        }
+      }
+    },
+    methods: {
+      addSubmit () {
+        this.snackbar=true
+        console.log(this.name)
+        console.log(this.district)
+        console.log(this.lat)
+        console.log(this.long)
+        this.addDL=false
+      },
+      editSubmit () {
+        
+        this.editDL=false
+      }
     }
   }
+
 </script>
+
+<codepen-resources lang="json">
+  {
+    "js": [
+      "https://cdn.jsdelivr.net/npm/vuelidate/dist/vuelidate.min.js",
+      "https://cdn.jsdelivr.net/npm/vuelidate/dist/validators.min.js"
+    ]
+  }
+
+</codepen-resources>
+
+<codepen-additional>
+  const { required, maxLength, email } = validators
+  const validationMixin = vuelidate.validationMixin
+
+  Vue.use(vuelidate.default)
+</codepen-additional>
 
 <style>
 </style>
