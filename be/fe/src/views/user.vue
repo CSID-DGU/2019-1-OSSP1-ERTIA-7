@@ -77,10 +77,6 @@
   </v-container>
 </template>
 <script>
-<<<<<<< HEAD
-=======
-
->>>>>>> 55f0783af72aa00aca1327acb079b395c37225bc
 import axios from 'axios'
 export default {
   data () {

@@ -35,7 +35,7 @@
                 :center="{lat:37.555, lng:127}"
                 :zoom="11.5"
                 map-type-id="terrain"
-                style="width: 500px; height: 300px"
+                style="width: 500px; height: 200px"
                     >
               <GmapMarker
 
@@ -69,9 +69,6 @@
         <v-card-title primary-title>
           <div>
             <h3 class="headline mb-0">{{trashbin.title}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{trashbin.amount}}%</h3>
-
-            <h3 class="headline mb-0">{{trashbin.title}}</h3>
-
           </div>
         </v-card-title>
         <div>
@@ -111,6 +108,23 @@
                     <v-flex xs6 sm6>
                       <v-text-field label="좌표 경도" required></v-text-field>
                     </v-flex>
+                    <GmapMap
+                       :center="{lat:37.555, lng:127}"
+                       :zoom="11.5"
+                       map-type-id="terrain"
+                       style="width: 500px; height: 200px"
+                           >
+                     <GmapMarker
+
+
+                       :key="index"
+                       v-for="(m, index) in markers"
+                       :position="m.position"
+                       :clickable="true"
+                       :draggable="true"
+                       @click="center=m.position"
+                     />
+                   </GmapMap>
                   </v-layout>
                 </v-container>
               </v-card-text>
@@ -136,11 +150,8 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                     <v-btn color="red" style="font-weight: bold" flat @click="delDL = false">삭제</v-btn>
-<<<<<<< HEAD
                   <v-btn style="font-weight: bold"flat @click="delDL = false">취소</v-btn>
-=======
                   <v-btn style="font-weight: bold" flat @click="delDL = false">취소</v-btn>
->>>>>>> 55f0783af72aa00aca1327acb079b395c37225bc
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -171,17 +182,9 @@
         })
         .catch((e) => {
           console.error(e.message)
-<<<<<<< HEAD
         })
-=======
-          this.tra
-        })
-
-
->>>>>>> 55f0783af72aa00aca1327acb079b395c37225bc
+      }
     }
-  }
-
 </script>
 
 <style>
