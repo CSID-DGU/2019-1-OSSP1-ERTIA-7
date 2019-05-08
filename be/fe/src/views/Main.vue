@@ -31,23 +31,23 @@
              <v-flex xs6 sm6>
                <v-text-field ref = "trashLng" label="좌표 경도" required></v-text-field>
              </v-flex>
-             <GmapMap onload="eventListener()"
-    :center="{lat:37.555, lng:127}"
-    :zoom="11.5"
-    map-type-id="terrain"
-    style="width: 500px; height: 300px"
-        >
-  <GmapMarker
- 
+             <GmapMap
+                :center="{lat:37.555, lng:127}"
+                :zoom="11.5"
+                map-type-id="terrain"
+                style="width: 500px; height: 300px"
+                    >
+              <GmapMarker
+            
 
-    :key="index"
-    v-for="(m, index) in markers"
-    :position="m.position"
-    :clickable="true"
-    :draggable="true"
-    @click="eventListener"
-  />
-</GmapMap>
+                :key="index"
+                v-for="(m, index) in markers"
+                :position="m.position"
+                :clickable="true"
+                :draggable="true"
+                @click="center=m.position"
+              />
+            </GmapMap>
            </v-layout>
          </v-container>
        </v-card-text>
@@ -168,36 +168,6 @@
         })
 
         
-    },
-    eventListener () {
-      var mapDiv = document.getElementById('map-canvas');
-  var map = new google.maps.Map(mapDiv, {
-    center: new google.maps.LatLng(37.4419, -122.1419),
-    zoom: 13,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  });
-
-  google.maps.event.addListener(map, 'bounds_changed', function() {
-      var lat1 = 37.41463623043073;
-      var lat2 = 37.46915383933881;
-      var lng1 = -122.1848153442383;
-      var lng2 = -122.09898465576174;  
-
-      var rectangle = new google.maps.Polygon({
-         paths : [
-           new google.maps.LatLng(lat1, lng1),
-           new google.maps.LatLng(lat2, lng1),
-           new google.maps.LatLng(lat2, lng2),
-           new google.maps.LatLng(lat1, lng2)
-         ],
-        strokeOpacity: 0,
-        fillOpacity : 0,
-        map : map
-      });
-      google.maps.event.addListener(rectangle, 'click', function(args) {  
-         console.log('latlng', args.latLng);
-    });
-  });
     }
   }
   
