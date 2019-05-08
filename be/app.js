@@ -4,7 +4,16 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var app = express();
+var firebase = require('firebase');
 const cors = require('cors')
+
+var config = {
+  apiKey: "AIzaSyC_PXtAD4_mHIZDvBHwlilhY-c_AN3B0qY",
+  authDomain: "ertia-1555997688215.firebaseapp.com",
+  databaseURL: "https://ertia-1555997688215.firebaseio.com",
+  storageBucket: "gs://ertia-1555997688215.appspot.com/",
+};
+firebase.initializeApp(config);
 
 app.use(logger('dev'));
 app.use(express.json());

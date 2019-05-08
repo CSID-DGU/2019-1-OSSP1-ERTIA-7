@@ -161,6 +161,12 @@
   export default {
     data () {
       return {
+        newBT: {
+          name:"",
+          district:"",
+          locationLat:"",
+          locationLong:""
+        },
         addDL: false,
         editDL : false,
         delDL : false,
@@ -195,6 +201,11 @@
     },
     methods: {
       addSubmit () {
+        const baseUrl="http://localhost:3000/api/trashbin"
+        this.$http.get(baseUrl + "/test").then(res => {
+          console.log("test", res.data);
+          this.newBT = res.data.newBT;
+        });
         this.snackbar=true
         console.log(this.name)
         console.log(this.district)
