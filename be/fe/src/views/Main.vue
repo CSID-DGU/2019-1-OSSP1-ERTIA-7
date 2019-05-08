@@ -37,8 +37,8 @@
        </v-card-text>
        <v-card-actions>
          <v-spacer></v-spacer>
-         <v-btn color="blue darken-1" flat @click="addDL = false">Close</v-btn>
-         <v-btn color="blue darken-1" flat @click="addDL = false">Save</v-btn>
+         <v-btn style="font-weight: bold" color="blue darken-1" flat @click="addDL = false">저장</v-btn>
+         <v-btn style="font-weight: bold" flat @click="addDL = false">취소</v-btn>
        </v-card-actions>
      </v-card>
    </v-dialog>
@@ -97,13 +97,30 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" flat @click="editDL = false">Close</v-btn>
-                <v-btn color="blue darken-1" flat @click="editDL = false">Save</v-btn>
+                <v-btn style="font-weight: bold" color="blue darken-1" flat @click="editDL = false">저장</v-btn>
+                <v-btn style="font-weight: bold" flat @click="editDL = false">취소</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
+
 <!-- 쓰레기통 삭제 -->
-          <v-btn flat color="red" style="font-weight: bold" dark>쓰레기통 삭제</v-btn>
+            <v-dialog v-model="delDL" persistent max-width="600px">
+              <template v-slot:activator="{ on }">
+                <v-flex xs12 sm12>
+                <v-btn flat color="red" style="font-weight: bold" dark v-on="on">쓰레기통 삭제</v-btn>
+                </v-flex>
+              </template>
+              <v-card>
+                <v-card-title>
+                  <span class="headline">정말 삭제하시겠습니까?</span>
+                </v-card-title>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                    <v-btn color="red" style="font-weight: bold" flat @click="delDL = false">삭제</v-btn>
+                  <v-btn style="font-weight: bold"flat @click="delDL = false">취소</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
         </v-card-actions>
       </v-card>
     </v-flex>
@@ -117,7 +134,8 @@
       return {
         trashbins: [],
         addDL: false,
-        editDL : false
+        editDL : false,
+        delDL : false
         }
     },
     mounted () {
