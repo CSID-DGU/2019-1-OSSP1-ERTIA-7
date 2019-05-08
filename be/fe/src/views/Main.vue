@@ -1,7 +1,10 @@
 <template>
   <v-layout row wrap>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 55f0783af72aa00aca1327acb079b395c37225bc
 <!-- 쓰레기통 추가 dialog -->
    <v-dialog v-model="addDL" persistent max-width="600px">
      <template v-slot:activator="{ on }">
@@ -27,11 +30,36 @@
                ></v-select>
              </v-flex>
              <v-flex xs6 sm6>
+<<<<<<< HEAD
                <v-text-field label="좌표 위도" required></v-text-field>
              </v-flex>
              <v-flex xs6 sm6>
                <v-text-field label="좌표 경도" required></v-text-field>
              </v-flex>
+=======
+               <v-text-field ref = "trashLat" label="좌표 위도" required></v-text-field>
+             </v-flex>
+             <v-flex xs6 sm6>
+               <v-text-field ref = "trashLng" label="좌표 경도" required></v-text-field>
+             </v-flex>
+             <GmapMap
+                :center="{lat:37.555, lng:127}"
+                :zoom="11.5"
+                map-type-id="terrain"
+                style="width: 500px; height: 300px"
+                    >
+              <GmapMarker
+            
+
+                :key="index"
+                v-for="(m, index) in markers"
+                :position="m.position"
+                :clickable="true"
+                :draggable="true"
+                @click="center=m.position"
+              />
+            </GmapMap>
+>>>>>>> 55f0783af72aa00aca1327acb079b395c37225bc
            </v-layout>
          </v-container>
        </v-card-text>
@@ -52,7 +80,11 @@
       <v-card >
         <v-card-title primary-title>
           <div>
+<<<<<<< HEAD
             <h3 class="headline mb-0">{{trashbin.title}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{trashbin.amount}}%</h3>
+=======
+            <h3 class="headline mb-0">{{trashbin.title}}</h3>
+>>>>>>> 55f0783af72aa00aca1327acb079b395c37225bc
           </div>
         </v-card-title>
         <div>
@@ -117,7 +149,11 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                     <v-btn color="red" style="font-weight: bold" flat @click="delDL = false">삭제</v-btn>
+<<<<<<< HEAD
                   <v-btn style="font-weight: bold"flat @click="delDL = false">취소</v-btn>
+=======
+                  <v-btn style="font-weight: bold" flat @click="delDL = false">취소</v-btn>
+>>>>>>> 55f0783af72aa00aca1327acb079b395c37225bc
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -125,6 +161,8 @@
       </v-card>
     </v-flex>
   </v-layout>
+
+  
 </template>
 
 <script>
@@ -146,9 +184,17 @@
         })
         .catch((e) => {
           console.error(e.message)
+<<<<<<< HEAD
         })
+=======
+          this.tra
+        })
+
+        
+>>>>>>> 55f0783af72aa00aca1327acb079b395c37225bc
     }
   }
+  
 </script>
 
 <style>
