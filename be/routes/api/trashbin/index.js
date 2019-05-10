@@ -4,9 +4,9 @@ var router = express.Router();
 
 router.get('/', function(req, res, next) {
   const tb = [
-    {title: '박규빈', location: '중랑구'},
-    {title: '강인솔', location: '중구'},
-    {title: '차민형', location: '동대문구'}
+    {title: '박규빈', location: '중랑구', amount: 30},
+    {title: '강인솔', location: '중구', amount: 40},
+    {title: '차민형', location: '동대문구', amount: 100}
   ]
   res.send({ trashbins: tb })
 });
