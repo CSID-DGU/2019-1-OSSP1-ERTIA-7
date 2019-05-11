@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import VueFire from 'vuefire'
 
 Vue.use(Router)
+Vue.use(VueFire)
 
 export default new Router({
   mode: 'history',

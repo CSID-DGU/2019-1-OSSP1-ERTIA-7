@@ -28,7 +28,7 @@
              <v-flex xs12 sm12>
                <v-text-field 
                ref="name"
-               v-model="name"
+               v-model="newBT.name"
                label="쓰레기통 이름" 
                required 
                ></v-text-field>
@@ -36,7 +36,7 @@
              <v-flex xs12 sm12>
                <v-select
                ref="district"
-                v-model="district"
+                v-model="newBT.district"
                  :items="['강남구', '강동구', '강북구', '강서구', '관악구', '광진구', '구로구', '금천구', '노원구', '도봉구', '동대문구', '동작구', '마포구', '서대문구', '서초구', '성동구', '성북구', '송파구', '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구']"
                  label="쓰레기통 위치"
                  required
@@ -45,14 +45,14 @@
              <v-flex xs6 sm6>
                <v-text-field
                ref="lat"
-               v-model="lat"
+               v-model="newBT.lat"
                 label="좌표 위도"
                 required></v-text-field>
              </v-flex>
              <v-flex xs6 sm6>
                <v-text-field
                ref="long"
-               v-model="long"
+               v-model="newBT.long"
                 label="좌표 경도" 
                 required></v-text-field>
              </v-flex>
@@ -77,11 +77,11 @@
       <v-card >
         <v-card-title primary-title>
           <div>
-            <h3 class="headline mb-0">{{trashbin.title}}</h3>
+            <h3 class="headline mb-0">{{trashbin.name}}</h3>
           </div>
         </v-card-title>
         <div>
-          <h4 class="ml-3 mb-0">위치: {{trashbin.location}}</h4>
+          <h4 class="ml-3 mb-0">위치: {{trashbin.district}}</h4>
         </div>
 
         <v-card-actions>
@@ -158,30 +158,51 @@
   import { validationMixin } from 'vuelidate'
   import { required, maxLength, email } from 'vuelidate/lib/validators'
 
+  let config = {
+    apiKey: "AIzaSyC_PXtAD4_mHIZDvBHwlilhY-c_AN3B0qY",
+    authDomain: "ertia-1555997688215.firebaseapp.com",
+    databaseURL: "https://ertia-1555997688215.firebaseio.com",
+    storageBucket: "gs://ertia-1555997688215.appspot.com/",
+  }
+
+  let fapp = firebase.initializeApp(config);
+  let db = fapp.database();
+
+  let tbsRef=db.ref('trashBins')
+
   export default {
     data () {
       return {
         newBT: {
-          name:"",
-          district:"",
-          locationLat:"",
-          locationLong:""
+          name:'',
+          district:'',
+          lat:'',
+          long:''
         },
+        //trashbins: [],
         addDL: false,
         editDL : false,
         delDL : false,
-        snackbar : false
+        snackbar : false,
+        datakey:''
       }
     },
     mounted () {
-      axios.get('http://localhost:3000/api/trashbin')
-        .then((r) => {
-          this.trashbins = r.data.trashbins
-          console.log(r)
+      // axios.get('http://localhost:3000/api/trashbin')
+      //   .then((r) => {
+      //     this.trashbins = r.data.trashbins
+      //     console.log(r)
+      //   })
+      //   .catch((e) => {
+      //     console.error(e.message)
+      //   })
+      tbsRef.on('value', function(tbs) {
+        tbs.forEach(function (childtbs) {
+          var tb=childtbs.val()
+          //this.trashbins=tb
+          console.log(tb)
         })
-        .catch((e) => {
-          console.error(e.message)
-        })
+      })
     },
     mixins: [validationMixin],
 
@@ -189,28 +210,30 @@
       name: {required},
       district: {required}
     },
-    computed: {
-      form () {
-        return {
-          name: this.name,
-          district: this.district,
-          locationLat: this.lat,
-          locationLong: this.long
-        }
-      }
+    // computed: {
+    //   form () {
+    //     return {
+    //       // name: this.newBT.name,
+    //       // district: this.newBT.district,
+    //       // lat: this.newBT.lat,
+    //       // long: this.newBT.long
+    //     }
+    //   }
+    // },
+    firebase: {
+      trashbins: db.ref('trashBins'),
     },
     methods: {
       addSubmit () {
-        const baseUrl="http://localhost:3000/api/trashbin"
-        this.$http.get(baseUrl + "/test").then(res => {
-          console.log("test", res.data);
-          this.newBT = res.data.newBT;
-        });
+        //trashbinRef.push(this.newBT)
+        //addDB.add(this.newBT)
+        this.datakey=tbsRef.push(this.newBT).key
         this.snackbar=true
-        console.log(this.name)
-        console.log(this.district)
-        console.log(this.lat)
-        console.log(this.long)
+        console.log(this.datakey)
+        console.log(this.newBT.name)
+        console.log(this.newBT.district)
+        console.log(this.newBT.lat)
+        console.log(this.newBT.long)
         this.addDL=false
       },
       editSubmit () {

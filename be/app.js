@@ -4,16 +4,19 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var app = express();
-var firebase = require('firebase');
+//var firebase = require('firebase');
 const cors = require('cors')
 
-var config = {
-  apiKey: "AIzaSyC_PXtAD4_mHIZDvBHwlilhY-c_AN3B0qY",
-  authDomain: "ertia-1555997688215.firebaseapp.com",
-  databaseURL: "https://ertia-1555997688215.firebaseio.com",
-  storageBucket: "gs://ertia-1555997688215.appspot.com/",
-};
-firebase.initializeApp(config);
+// var config = {
+//   apiKey: "AIzaSyC_PXtAD4_mHIZDvBHwlilhY-c_AN3B0qY",
+//   authDomain: "ertia-1555997688215.firebaseapp.com",
+//   databaseURL: "https://ertia-1555997688215.firebaseio.com",
+//   storageBucket: "gs://ertia-1555997688215.appspot.com/",
+// };
+// var fapp = firebase.initializeApp(config);
+// var db = fapp.database();
+
+// var trashbinRef=db.ref('trashBins');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -40,3 +43,10 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+// module.exports = {
+//   getTrashBins: function () {
+//     return {
+//       trashbinRef
+//     }
+//   }
+// }
