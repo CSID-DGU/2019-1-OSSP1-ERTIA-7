@@ -8,5 +8,8 @@ Efficient Route Tracking &amp; IoT &amp; Android
 
 > 2015112096 강인솔 (insolk)
 
+## Sample Page
+https://ertia-1555997688215.firebaseapp.com/
+
 ## Original Opensource
 https://github.com/SarfarazAhmed008/TrashBin

@@ -4,6 +4,7 @@ var createError = require('http-errors');
 
 /* GET home page. */
 router.use('/user', require('./user'))
+router.use('/trashbin', require('./trashbin'))
 
 router.all('*', function(req, res, next){
   next(createError(404, 'Error'));
