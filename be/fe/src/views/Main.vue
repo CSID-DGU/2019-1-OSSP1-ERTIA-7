@@ -85,8 +85,8 @@
 
 <!-- 각각 쓰레기통 카드들 -->
     <v-flex xs2 sm2
-    v-for="trashbin in trashbins"
-    :key="trashbin.title"
+    v-for="(trashbin,index) in trashbins"
+    :key="index"
     class="ml-2">
       <v-card >
         <v-card-title primary-title>
@@ -99,7 +99,7 @@
         </div>
 
         <v-card-actions>
-          <v-dialog v-model="editDL" persistent max-width="600px">
+          <v-dialog v-model="trashbin.editDL" persistent max-width="600px">
 
 
 <!-- 쓰레기통 수정 버튼 dialog-->
@@ -153,14 +153,14 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn style="font-weight: bold" color="blue darken-1" flat @click="editDL = false">저장</v-btn>
-                <v-btn style="font-weight: bold" flat @click="editDL = false">취소</v-btn>
+                <v-btn style="font-weight: bold" color="blue darken-1" flat @click="editSubmit(index)">저장</v-btn>
+                <v-btn style="font-weight: bold" flat @click="trashbin.editDL = false">취소</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
 
 <!-- 쓰레기통 삭제 -->
-            <v-dialog v-model="delDL" persistent max-width="600px">
+          <v-dialog v-model="trashbin.delDL" persistent max-width="600px">
               <template v-slot:activator="{ on }">
                 <v-flex xs12 sm12>
                 <v-btn flat color="red" style="font-weight: bold" dark v-on="on">쓰레기통 삭제</v-btn>
@@ -172,9 +172,8 @@
                 </v-card-title>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                    <v-btn color="red" style="font-weight: bold" flat @click="delDL = false">삭제</v-btn>
-                  <v-btn style="font-weight: bold" flat @click="delDL = false">취소</v-btn>
-                  <v-btn style="font-weight: bold" flat @click="delDL = false">취소</v-btn>
+                    <v-btn color="red" style="font-weight: bold" flat @click="deleteSubmit(trashbins[index], index)">삭제</v-btn>
+                  <v-btn style="font-weight: bold" flat @click="trashbin.delDL = false">취소</v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -207,7 +206,9 @@
           district:'',
           lat:'',
           long:'',
-          amount:''
+          amount:'',
+          editDL:false,
+          delDL:false
         },
         //trashbins: [],
         addDL: false,
@@ -241,6 +242,17 @@
         console.log(this.newBT)
         this.addDL=false
         this.snackbar=true
+      },
+      editSubmit (key) {
+
+        console.log(key)
+        this.trashbins[key].editDL=false
+      },
+      deleteSubmit (tb, key) {
+        tbsRef.child(tb['.key']).remove()
+        console.log(key)
+        console.log(tb)
+        this.trashbins[key].delDL=false
       }
     }
   }
