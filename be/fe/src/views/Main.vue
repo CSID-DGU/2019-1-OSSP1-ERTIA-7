@@ -26,9 +26,9 @@
          <v-container grid-list-md>
            <v-layout wrap>
              <v-flex xs12 sm12>
-               <v-text-field 
+               <v-text-field
                v-model="newBT.title"
-               label="쓰레기통 이름" 
+               label="쓰레기통 이름"
                required></v-text-field>
              </v-flex>
              <v-flex xs12 sm12>
@@ -40,17 +40,17 @@
                ></v-select>
              </v-flex>
              <v-flex xs6 sm6>
-               <v-text-field 
+               <v-text-field
                v-model="newBT.lat"
-               ref = "trashLat" 
-               label="좌표 위도" 
+               ref = "trashLat"
+               label="좌표 위도"
                required></v-text-field>
              </v-flex>
              <v-flex xs6 sm6>
-               <v-text-field 
+               <v-text-field
                v-model="newBT.long"
-               ref = "trashLng" 
-               label="좌표 경도" 
+               ref = "trashLng"
+               label="좌표 경도"
                required></v-text-field>
              </v-flex>
              <!-- <GmapMap
@@ -102,12 +102,11 @@
     <v-flex xs2 sm2
     v-for="(trashbin,index) in trashbins"
     :key="index"
-    class="ml-2">
+    class="ml-2 mb-2 mt-2">
       <v-card >
         <v-card-title primary-title>
-          <div>
-            <h3 class="headline mb-0">{{trashbin.title}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{trashbin.amount}}%</h3>
-          </div>
+          <span style="margin-right: auto; font-size: 20px" >{{trashbin.title}}</span>
+            <span style="font-size: 18px">{{trashbin.amount}}%</span>
         </v-card-title>
         <div>
           <h4 class="ml-3 mb-0">위치: {{trashbin.district}}</h4>
@@ -132,9 +131,9 @@
                 <v-container grid-list-md>
                   <v-layout wrap>
                     <v-flex xs12 sm12>
-                      <v-text-field 
+                      <v-text-field
                       v-model="editBT.title"
-                      label="쓰레기통 이름" 
+                      label="쓰레기통 이름"
                       required></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm12>
@@ -146,34 +145,18 @@
                       ></v-select>
                     </v-flex>
                     <v-flex xs6 sm6>
-                      <v-text-field 
+                      <v-text-field
                       v-model="editBT.lat"
-                      label="좌표 위도" 
+                      label="좌표 위도"
                       required></v-text-field>
                     </v-flex>
                     <v-flex xs6 sm6>
-                      <v-text-field 
+                      <v-text-field
                       v-model="editBT.long"
-                      label="좌표 경도" 
+                      label="좌표 경도"
                       required></v-text-field>
                     </v-flex>
-                    <!-- <GmapMap
-                       :center="{lat:37.555, lng:127}"
-                       :zoom="11.5"
-                       map-type-id="terrain"
-                       style="width: 500px; height: 200px"
-                           >
-                     <GmapMarker
 
-
-                       :key="index"
-                       v-for="(m, index) in markers"
-                       :position="m.position"
-                       :clickable="true"
-                       :draggable="true"
-                       @click="center=m.position"
-                     />
-                   </GmapMap> -->
                     <GmapMap
                       v-bind:center="{lat:37.555, lng:127}"
                       v-bind:zoom="11.5"
@@ -323,13 +306,13 @@
         this.newBT.lat= place.latLng.lat()
         this.newBT.long= place.latLng.lng()
         console.log('lat: ' + place.latLng.lat())
-        console.log('lng: ' + place.latLng.lng()) 
+        console.log('lng: ' + place.latLng.lng())
       },
       getMarkerPositionEdit(place) {
         this.editBT.lat= place.latLng.lat()
         this.editBT.long= place.latLng.lng()
         console.log('lat: ' + place.latLng.lat())
-        console.log('lng: ' + place.latLng.lng()) 
+        console.log('lng: ' + place.latLng.lng())
       }
     }
   }
