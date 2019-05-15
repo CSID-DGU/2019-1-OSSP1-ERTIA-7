@@ -5,6 +5,7 @@ import './plugins/vuetify'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import VueFire from 'vuefire'
 
 Vue.config.productionTip = false
 
@@ -16,7 +17,9 @@ new Vue({
 
 Vue.use(VueGoogleMaps, {
   load: {
-    key: 'AIzaSyDQE10ZWgtBCle5ARE9vgCKCgw5un_h3I8',
+    key: '',
     libraries: 'places,drawing'
   },
 })
+
+Vue.use(VueFire)
