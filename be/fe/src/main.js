@@ -17,9 +17,8 @@ new Vue({
 
 Vue.use(VueGoogleMaps, {
   load: {
-    key: '',
-    libraries: 'places,drawing'
-  },
+    key: ''
+  }
 })
 
 Vue.use(VueFire)

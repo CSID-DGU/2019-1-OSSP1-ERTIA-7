@@ -233,7 +233,7 @@
   import firebase from 'firebase'
 
   let config = {
-
+  
   }
 
   let fapp = firebase.initializeApp(config);
