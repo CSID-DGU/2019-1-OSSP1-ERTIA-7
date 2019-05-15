@@ -70,6 +70,21 @@
                 @click="center=m.position"
               />
             </GmapMap> -->
+            <GmapMap
+                v-bind:center="{lat:37.555, lng:127}"
+                v-bind:zoom="11.5"
+                map-type-id="terrain"
+                style="width: 500px; height: 200px"
+                    >
+              <GmapMarker
+                v-bind:key="index"
+                v-for="(m, index) in markers"
+                v-bind:position="m.position"
+                v-bind:clickable="true"
+                v-bind:draggable="true"
+                @dragend="getMarkerPosition"
+              />
+            </GmapMap>
            </v-layout>
          </v-container>
        </v-card-text>
@@ -108,6 +123,7 @@
               <v-btn flat color="blue" style="font-weight: bold" dark v-on="on">쓰레기통 수정</v-btn>
               </v-flex>
             </template>
+            <v-form>
             <v-card>
               <v-card-title>
                 <span class="headline">쓰레기통 정보</span>
@@ -116,20 +132,30 @@
                 <v-container grid-list-md>
                   <v-layout wrap>
                     <v-flex xs12 sm12>
-                      <v-text-field label="쓰레기통 이름" required></v-text-field>
+                      <v-text-field 
+                      v-model="editBT.title"
+                      label="쓰레기통 이름" 
+                      required></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm12>
                       <v-select
+                      v-model="editBT.district"
                         :items="['강남구', '강동구', '강북구', '강서구', '관악구', '광진구', '구로구', '금천구', '노원구', '도봉구', '동대문구', '동작구', '마포구', '서대문구', '서초구', '성동구', '성북구', '송파구', '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구']"
                         label="쓰레기통 위치"
                         required
                       ></v-select>
                     </v-flex>
                     <v-flex xs6 sm6>
-                      <v-text-field label="좌표 위도" required></v-text-field>
+                      <v-text-field 
+                      v-model="editBT.lat"
+                      label="좌표 위도" 
+                      required></v-text-field>
                     </v-flex>
                     <v-flex xs6 sm6>
-                      <v-text-field label="좌표 경도" required></v-text-field>
+                      <v-text-field 
+                      v-model="editBT.long"
+                      label="좌표 경도" 
+                      required></v-text-field>
                     </v-flex>
                     <!-- <GmapMap
                        :center="{lat:37.555, lng:127}"
@@ -148,15 +174,32 @@
                        @click="center=m.position"
                      />
                    </GmapMap> -->
+                    <GmapMap
+                      v-bind:center="{lat:37.555, lng:127}"
+                      v-bind:zoom="11.5"
+                      map-type-id="terrain"
+                      style="width: 500px; height: 200px"
+                    >
+                      <GmapMarker
+                        v-bind:key="index"
+                        v-for="(m, index) in markers"
+                        v-bind:position="m.position"
+                        v-bind:clickable="true"
+                        v-bind:draggable="true"
+                        @dragend="getMarkerPositionEdit"
+                      />
+                      </GmapMap>
+
                   </v-layout>
                 </v-container>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn style="font-weight: bold" color="blue darken-1" flat @click="editSubmit(index)">저장</v-btn>
+                <v-btn style="font-weight: bold" color="blue darken-1" flat @click="editSubmit(trashbins[index], index)">저장</v-btn>
                 <v-btn style="font-weight: bold" flat @click="trashbin.editDL = false">취소</v-btn>
               </v-card-actions>
             </v-card>
+            </v-form>
           </v-dialog>
 
 <!-- 쓰레기통 삭제 -->
@@ -190,7 +233,10 @@
   import firebase from 'firebase'
 
   let config = {
-
+    apiKey: "AIzaSyC_PXtAD4_mHIZDvBHwlilhY-c_AN3B0qY",
+    authDomain: "ertia-1555997688215.firebaseapp.com",
+    databaseURL: "https://ertia-1555997688215.firebaseio.com",
+    storageBucket: "gs://ertia-1555997688215.appspot.com/",
   }
 
   let fapp = firebase.initializeApp(config);
@@ -206,10 +252,20 @@
           district:'',
           lat:'',
           long:'',
-          amount:'',
+          amount:'0',
           editDL:false,
           delDL:false
         },
+        editBT: {
+          title:'',
+          district:'',
+          lat:'',
+          long:''
+        },
+        center : {lat:37.555, lng:127},
+        markers: [{
+          position:{lat:37.555, lng:127}
+        }],
         //trashbins: [],
         addDL: false,
         editDL : false,
@@ -243,16 +299,37 @@
         this.addDL=false
         this.snackbar=true
       },
-      editSubmit (key) {
-
+      editSubmit (tb, key) {
+        //var updates={}
+        //updates['/trashBins/'+tb.key+'/'+this.editBT]
+        tbsRef.child(tb['.key']).update({
+          title: this.editBT.title,
+          district: this.editBT.district,
+          lat: this.editBT.lat,
+          long: this.editBT.long
+        })
+        //db.ref().update(updates)
         console.log(key)
         this.trashbins[key].editDL=false
       },
       deleteSubmit (tb, key) {
+        this.trashbins[key].delDL=false
         tbsRef.child(tb['.key']).remove()
         console.log(key)
         console.log(tb)
-        this.trashbins[key].delDL=false
+        //this.trashbins[key].delDL=false
+      },
+      getMarkerPosition(place) {
+        this.newBT.lat= place.latLng.lat()
+        this.newBT.long= place.latLng.lng()
+        console.log('lat: ' + place.latLng.lat())
+        console.log('lng: ' + place.latLng.lng()) 
+      },
+      getMarkerPositionEdit(place) {
+        this.editBT.lat= place.latLng.lat()
+        this.editBT.long= place.latLng.lng()
+        console.log('lat: ' + place.latLng.lat())
+        console.log('lng: ' + place.latLng.lng()) 
       }
     }
   }
