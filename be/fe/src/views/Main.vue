@@ -251,8 +251,6 @@
         }],
         //trashbins: [],
         addDL: false,
-        editDL : false,
-        delDL : false,
         snackbar:false
         }
     },

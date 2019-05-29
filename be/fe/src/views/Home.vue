@@ -1,11 +1,12 @@
 <template>
-  <v-layout align-center justify-center fill-height>
+  <v-layout  row wrap>
+  <v-container>
+  <v-flex sm12 xs12>
     <div>
-      <v-btn color="teal" style="color:white" large :to="main">login</v-btn>
+      <v-btn color="teal" style="color:white" large :to="main">admin</v-btn>
     </div>
-    <div>
-      <v-btn color="teal" style="color:white" large :to="user">user</v-btn>
-    </div>
+  </v-flex>
+  </v-container>
   </v-layout>
 </template>
 
@@ -13,8 +14,7 @@
   export default {
     data () {
       return {
-        main:"/Main",
-        user:"/user"
+        main:"/Main"
 
       }
     }
