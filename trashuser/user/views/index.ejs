@@ -1,9 +1,29 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+        <link rel='stylesheet' href='/stylesheets/style.css' />
         <title>simpleMap</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://api2.sktelecom.com/tmap/js?version=1&format=javascript&appKey="></script>
+        <script src="https://api2.sktelecom.com/tmap/js?version=1&format=javascript&appKey=8bad0cf0-5aab-43d7-8850-bfd489dd3cf2"></script>
+        <style>
+        floating-menu {
+    font-family: sans-serif;
+    background: yellowgreen;
+    padding: 5px;;
+    width: 130px;
+    z-index: 100;
+    position: fixed;
+  }
+  .floating-menu a,
+  .floating-menu h3 {
+    font-size: 0.9em;
+    display: block;
+    margin: 0 0.5em;
+    color: white;
+  }
+      </style>
         <script type="text/javascript">
 			function initTmap(){
 				var map = new Tmap.Map({
@@ -99,7 +119,7 @@
       // 4. 경유지 최적화 API 사용요청
       var prtcl;
       var headers = {};
-      headers["appKey"]="";
+      headers["appKey"]="8bad0cf0-5aab-43d7-8850-bfd489dd3cf2";
       $.ajax({
       	type:"POST",
       	headers : headers,
@@ -221,7 +241,13 @@
 		</script>
     </head>
     <body onload="initTmap()">
+
         <div id="map_div">
+          <nav class="floating-menu">
+          <h3>Floating Menu</h3>
+          <a>Back</a>
+        </nav>
         </div>
     </body>
+
 </html>
