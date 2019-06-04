@@ -7,29 +7,12 @@
         <title>simpleMap</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://api2.sktelecom.com/tmap/js?version=1&format=javascript&appKey=8bad0cf0-5aab-43d7-8850-bfd489dd3cf2"></script>
-        <style>
-        floating-menu {
-    font-family: sans-serif;
-    background: yellowgreen;
-    padding: 5px;;
-    width: 130px;
-    z-index: 100;
-    position: fixed;
-  }
-  .floating-menu a,
-  .floating-menu h3 {
-    font-size: 0.9em;
-    display: block;
-    margin: 0 0.5em;
-    color: white;
-  }
-      </style>
         <script type="text/javascript">
 			function initTmap(){
 				var map = new Tmap.Map({
 					div:'map_div',
-					width : "full",
-					height : "full",
+					width : "100%",
+					height : "93%",
 				});
 				map.setCenter(new Tmap.LonLat("126.986072", "37.570028").transform("EPSG:4326", "EPSG:3857"), 15);
         routeLayer = new Tmap.Layer.Vector("route");
@@ -243,11 +226,10 @@
     <body onload="initTmap()">
 
         <div id="map_div">
-          <nav class="floating-menu">
-          <h3>Floating Menu</h3>
-          <a>Back</a>
-        </nav>
-        </div>
+          <div style="background-color:	#008080">
+            <a href="/"><button style="background-color: #008080" class="btn-large" id="btnLogin"><i class="material-icons">navigate_before</i></button></a>
+          </div>
+      </div>
     </body>
 
 </html>

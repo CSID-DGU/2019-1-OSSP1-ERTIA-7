@@ -1,7 +1,7 @@
 <template>
-  <v-app  class="Appsize">
-    <v-content class="Appsize">
-      <router-view  class="Appsize">
+  <v-app>
+    <v-content>
+      <router-view>
       </router-view>
     </v-content>
   </v-app>
@@ -18,9 +18,3 @@ export default {
   }
 }
 </script>
-<style>
-.Appsize{
-  width: full;
-  height: 600px;
-}
-</style>
