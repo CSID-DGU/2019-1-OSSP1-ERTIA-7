@@ -51,7 +51,7 @@ router.post('/', function(req, res, next) {
      console.log('here!!!');
      console.log(startX);
   console.log(startY);
-    res.render('index', { title:'index', row: data, datasize});
+    res.render('index', { title:'index', row: data, datasize, sX: startX, sY: startY});
   });
 });
 

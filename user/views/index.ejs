@@ -17,6 +17,11 @@
 								// 보여줄 경유지 개수
 								var datasize = <%= datasize %>;
 								console.log(datasize);
+								var startX = <%= sX %>;
+								var startY = <%= sY %>;
+
+								console.log(startX);
+								console.log(startY);
 
 								// database에서 경유지 정보 받기
 								var tbs = "<%= JSON.stringify(row) %>";
@@ -40,7 +45,7 @@
         var size = new Tmap.Size(24, 38);
         var offset = new Tmap.Pixel(-(size.w / 2), -size.h);
         var icon = new Tmap.IconHtml("<img src='http://tmapapis.sktelecom.com/upload/tmap/marker/pin_r_m_s.png' />", size, offset);
-        var marker_s = new Tmap.Marker(new Tmap.LonLat("126.98605733268329", "37.568085523663385").transform("EPSG:4326", "EPSG:3857"), icon);
+        var marker_s = new Tmap.Marker(new Tmap.LonLat(startX, startY).transform("EPSG:4326", "EPSG:3857"), icon);
         markerStartLayer.addMarker(marker_s);
 
         // 종점
@@ -49,7 +54,7 @@
         var size = new Tmap.Size(24, 38);
         var offset = new Tmap.Pixel(-(size.w / 2), -size.h);
         var icon = new Tmap.IconHtml("<img src='http://tmapapis.sktelecom.com/upload/tmap/marker/pin_r_m_e.png' />", size, offset);
-        var marker_e = new Tmap.Marker(new Tmap.LonLat("127.00973587385866", "37.56445848334345").transform("EPSG:4326", "EPSG:3857"), icon);
+        var marker_e = new Tmap.Marker(new Tmap.LonLat(startX, startY).transform("EPSG:4326", "EPSG:3857"), icon);
         markerEndLayer.addMarker(marker_e);
 
 				if(datasize==0){
@@ -88,6 +93,8 @@
 
 					viaArr.push(temp);
 				}
+				var viastartX=JSON.stringify(startX);
+				var viastartY=JSON.stringify(startY);
 				//console.log(viaArr);
 				//var viaArrJson=JSON.stringify(viaArr);
 				//console.log(viaArrJson);
@@ -140,12 +147,12 @@
       					  "reqCoordType": "WGS84GEO",
       					  "resCoordType" : "EPSG3857",
       					  "startName": "출발",
-      					  "startX": "126.98605733268329",
-      					  "startY": "37.568085523663385",
+      					  "startX": viastartX,
+      					  "startY": viastartY,
       					  "startTime": "201711121314",
       					  "endName": "도착",
-      					  "endX": "127.00973587385866",
-      					  "endY": "37.56445848334345",
+      					  "endX": viastartX,
+      					  "endY": viastartY,
       					  "searchOption" : "0",
       					  "viaPoints": viaArr,
       	}),
