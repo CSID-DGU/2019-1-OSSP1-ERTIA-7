@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://api2.sktelecom.com/tmap/js?version=1&format=javascript&appKey=8bad0cf0-5aab-43d7-8850-bfd489dd3cf2"></script>
+    <script src="https://api2.sktelecom.com/tmap/js?version=1&format=javascript&appKey="></script>
     <script type="text/javascript">
   function initTmap(){
-   
+
          // 1. 지도 띄우기//http://tmapapi.sktelecom.com/web/usecase/sample.kml
 map = new Tmap.Map({
 	div : 'map_div',
@@ -31,7 +31,7 @@ markerLayer0 = new Tmap.Layer.Markers();
        }else{
            xhttp0=new ActiveXObject("Microsoft.XMLDOM");
        }
-	
+
 	xhttp0.open("GET","./sample.kml",false);
 	xhttp0.send();
 
@@ -42,22 +42,22 @@ markerLayer0 = new Tmap.Layer.Markers();
 	var offset = new Tmap.Pixel(-(size.w / 2), -(size.h));
 	var maker0;
 	var popup0,popup20;
-	var prtclString0 = new XMLSerializer().serializeToString(prtcl0);//xml to String	
+	var prtclString0 = new XMLSerializer().serializeToString(prtcl0);//xml to String
 	xmlDoc0 = $.parseXML( prtclString0 ),
 	$xml0 = $( xmlDoc0 ),
   $intRate0 = $xml0.find("Placemark");
-  
+
 //현재위치를 그릴 레이어 생성
 markerLayer1 = new Tmap.Layer.Markers();
 
 	// 2. 위치 조회
-	
+
   if(window.XMLHttpRequest){
            xhttp1=new XMLHttpRequest();
        }else{
            xhttp1=new ActiveXObject("Microsoft.XMLDOM");
        }
-	
+
 	xhttp1.open("GET","./sample1.kml",false);
 	xhttp1.send();
   var prtcl1 =  xhttp1.responseXML;
@@ -66,11 +66,11 @@ markerLayer1 = new Tmap.Layer.Markers();
 	map.addLayer(markerLayer1);
 	var maker1;
 	var popup1,popup21;
-	var prtclString1 = new XMLSerializer().serializeToString(prtcl1);//xml to String	
+	var prtclString1 = new XMLSerializer().serializeToString(prtcl1);//xml to String
 	xmlDoc1 = $.parseXML( prtclString1 ),
 	$xml1 = $( xmlDoc1 ),
   $intRate1 = $xml1.find("Placemark");
-  
+
 //현재위치를 그릴 레이어 생성
 markerLayer2 = new Tmap.Layer.Markers();
 
@@ -80,7 +80,7 @@ markerLayer2 = new Tmap.Layer.Markers();
        }else{
            xhttp2=new ActiveXObject("Microsoft.XMLDOM");
        }
-	
+
 	xhttp2.open("GET","./sample2.kml",false);
 	xhttp2.send();
   var prtcl2 =  xhttp2.responseXML;
@@ -89,33 +89,33 @@ markerLayer2 = new Tmap.Layer.Markers();
 	map.addLayer(markerLayer2);
 	var maker2;
 	var popup2,popup22;
-	var prtclString2= new XMLSerializer().serializeToString(prtcl2);//xml to String	
+	var prtclString2= new XMLSerializer().serializeToString(prtcl2);//xml to String
 	xmlDoc2 = $.parseXML( prtclString2 ),
 	$xml2 = $( xmlDoc2 ),
 	$intRate2 = $xml2.find("Placemark");
-    
+
 	function myFunction0(cnt, checkLevel){
 		    $intRate0.each(function(index, element) {
 		    	var name0 = element.getElementsByTagName("name")[0].childNodes[0].nodeValue;
 		    	var number0 = element.getElementsByTagName("number")[0].childNodes[0].nodeValue;
 		    	var affiliation0 = element.getElementsByTagName("affiliation")[0].childNodes[0].nodeValue;
 		    	var distance0 = element.getElementsByTagName("distance")[cnt].childNodes[0].nodeValue;
-		    	var speed0 = element.getElementsByTagName("speed")[cnt].childNodes[0].nodeValue;	
-		    	var content0 = 
-					    	'<div class="wrap">' + 
-			                '    <div class="info">' + 
-			                '        <div class="title">' + 
-			                '            '+name0 + 
-			                '        </div>' + 
-			                '        <div class="body">' + 
-			                '            <div class="desc">' + 
-			                '                <div><span>쓰레기양</span> '+number0+'</div>' +  
-			                '                <div><span>소속지사</span> '+affiliation0+'</div>' + 
-			                '                <div><span>운행거리</span> '+distance0+'km</div>' + 
-			                '                <div><span>현재속도</span> '+speed0+'km/h</div>' + 
-			                '            </div>' + 
-			                '        </div>' + 
-			                '    </div>' +     
+		    	var speed0 = element.getElementsByTagName("speed")[cnt].childNodes[0].nodeValue;
+		    	var content0 =
+					    	'<div class="wrap">' +
+			                '    <div class="info">' +
+			                '        <div class="title">' +
+			                '            '+name0 +
+			                '        </div>' +
+			                '        <div class="body">' +
+			                '            <div class="desc">' +
+			                '                <div><span>쓰레기양</span> '+number0+'</div>' +
+			                '                <div><span>소속지사</span> '+affiliation0+'</div>' +
+			                '                <div><span>운행거리</span> '+distance0+'km</div>' +
+			                '                <div><span>현재속도</span> '+speed0+'km/h</div>' +
+			                '            </div>' +
+			                '        </div>' +
+			                '    </div>' +
 			                '</div>';
 		    	var point0 = element.getElementsByTagName("coordinates")[cnt].childNodes[0].nodeValue.split(',');
 				console.log(point0[0]+","+point0[1]);
@@ -124,18 +124,18 @@ markerLayer2 = new Tmap.Layer.Markers();
 				console.log(lonlat0.toShortString());
 				marker0 = new Tmap.Marker(lonlat0, icon0);
 				markerLayer0.addMarker(marker0);
-				
+
 				popup0 = new Tmap.Popup("p10", lonlat0, new Tmap.Size(140, 140), content0, true);//마우스 오버 팝업
 				popup20 = new Tmap.Popup("p20", lonlat0, new Tmap.Size(140, 140), content0, true);//마우스 클릭 팝업
 				map.addPopup(popup0);
 				map.addPopup(popup20);
 				popup0.hide();
         		popup20.hide();
-        
+
 				//마커 이벤트등록
 			    marker0.events.register("mouseover", popup0, onOverMarker);
 			    function onOverMarker(evt) {
-			      this.show(); //마커에 마우스가 오버되었을 때 팝업이 보입니다. 
+			      this.show(); //마커에 마우스가 오버되었을 때 팝업이 보입니다.
 			    }
 			    marker0.events.register("mouseout", popup0, onOutMarker);
 			    function onOutMarker(evt) {
@@ -143,7 +143,7 @@ markerLayer2 = new Tmap.Layer.Markers();
 			    }
 			    marker0.events.register("click", popup20, onClickMarker);
 			    function onClickMarker(evt) {
-			    	this.show(); //마커에 마우스가 클릭되었을 때 팝업이 보입니다. 
+			    	this.show(); //마커에 마우스가 클릭되었을 때 팝업이 보입니다.
 				}
         });
 	    }
@@ -154,21 +154,21 @@ markerLayer2 = new Tmap.Layer.Markers();
 		    	var affiliation1 = element.getElementsByTagName("affiliation")[0].childNodes[0].nodeValue;
 		    	var distance1 = element.getElementsByTagName("distance")[cnt].childNodes[0].nodeValue;
 		    	var speed1 = element.getElementsByTagName("speed")[cnt].childNodes[0].nodeValue;
-		    	var content1 = 
-					    	'<div class="wrap">' + 
-			                '    <div class="info">' + 
-			                '        <div class="title">' + 
-			                '            '+name1 + 
-			                '        </div>' + 
-			                '        <div class="body">' + 
-			                '            <div class="desc">' + 
-			                '                <div><span>쓰레기양</span> '+number1+'</div>' +  
-			                '                <div><span>소속지사</span> '+affiliation1+'</div>' + 
-			                '                <div><span>운행거리</span> '+distance1+'km</div>' + 
-			                '                <div><span>현재속도</span> '+speed1+'km/h</div>' + 
-			                '            </div>' + 
-			                '        </div>' + 
-			                '    </div>' +     
+		    	var content1 =
+					    	'<div class="wrap">' +
+			                '    <div class="info">' +
+			                '        <div class="title">' +
+			                '            '+name1 +
+			                '        </div>' +
+			                '        <div class="body">' +
+			                '            <div class="desc">' +
+			                '                <div><span>쓰레기양</span> '+number1+'</div>' +
+			                '                <div><span>소속지사</span> '+affiliation1+'</div>' +
+			                '                <div><span>운행거리</span> '+distance1+'km</div>' +
+			                '                <div><span>현재속도</span> '+speed1+'km/h</div>' +
+			                '            </div>' +
+			                '        </div>' +
+			                '    </div>' +
 			                '</div>';
 		    	var point1 = element.getElementsByTagName("coordinates")[cnt].childNodes[0].nodeValue.split(',');
 				console.log(point1[0]+","+point1[1]);
@@ -177,18 +177,18 @@ markerLayer2 = new Tmap.Layer.Markers();
 				console.log(lonlat1.toShortString());
 				marker1 = new Tmap.Marker(lonlat1, icon1);
 				markerLayer1.addMarker(marker1);
-				
+
 				popup1 = new Tmap.Popup("p10", lonlat1, new Tmap.Size(140, 140), content1, true);//마우스 오버 팝업
 				popup21 = new Tmap.Popup("p20", lonlat1, new Tmap.Size(140, 140), content1, true);//마우스 클릭 팝업
 				map.addPopup(popup1);
 				map.addPopup(popup21);
 				popup1.hide();
        		    popup21.hide();
-        
+
 				//마커 이벤트등록
 			    marker1.events.register("mouseover", popup1, onOverMarker);
 			    function onOverMarker(evt) {
-			      this.show(); //마커에 마우스가 오버되었을 때 팝업이 보입니다. 
+			      this.show(); //마커에 마우스가 오버되었을 때 팝업이 보입니다.
 			    }
 			    marker1.events.register("mouseout", popup1, onOutMarker);
 			    function onOutMarker(evt) {
@@ -196,7 +196,7 @@ markerLayer2 = new Tmap.Layer.Markers();
 			    }
 			    marker1.events.register("click", popup21, onClickMarker);
 			    function onClickMarker(evt) {
-			    	this.show(); //마커에 마우스가 클릭되었을 때 팝업이 보입니다. 
+			    	this.show(); //마커에 마우스가 클릭되었을 때 팝업이 보입니다.
 				}
         });
       }
@@ -207,21 +207,21 @@ markerLayer2 = new Tmap.Layer.Markers();
 		    	var affiliation2 = element.getElementsByTagName("affiliation")[0].childNodes[0].nodeValue;
 		    	var distance2 = element.getElementsByTagName("distance")[cnt].childNodes[0].nodeValue;
 		    	var speed2 = element.getElementsByTagName("speed")[cnt].childNodes[0].nodeValue;
-		    	var content2 = 
-					    	'<div class="wrap">' + 
-			                '    <div class="info">' + 
-			                '        <div class="title">' + 
-			                '            '+name2 + 
-			                '        </div>' + 
-			                '        <div class="body">' + 
-			                '            <div class="desc">' + 
-			                '                <div><span>쓰레기양</span> '+number2+'</div>' +  
-			                '                <div><span>소속지사</span> '+affiliation2+'</div>' + 
-			                '                <div><span>운행거리</span> '+distance2+'km</div>' + 
-			                '                <div><span>현재속도</span> '+speed2+'km/h</div>' + 
-			                '            </div>' + 
-			                '        </div>' + 
-			                '    </div>' +     
+		    	var content2 =
+					    	'<div class="wrap">' +
+			                '    <div class="info">' +
+			                '        <div class="title">' +
+			                '            '+name2 +
+			                '        </div>' +
+			                '        <div class="body">' +
+			                '            <div class="desc">' +
+			                '                <div><span>쓰레기양</span> '+number2+'</div>' +
+			                '                <div><span>소속지사</span> '+affiliation2+'</div>' +
+			                '                <div><span>운행거리</span> '+distance2+'km</div>' +
+			                '                <div><span>현재속도</span> '+speed2+'km/h</div>' +
+			                '            </div>' +
+			                '        </div>' +
+			                '    </div>' +
 			                '</div>';
 		    	var point2 = element.getElementsByTagName("coordinates")[cnt].childNodes[0].nodeValue.split(',');
 				console.log(point2[0]+","+point2[1]);
@@ -230,18 +230,18 @@ markerLayer2 = new Tmap.Layer.Markers();
 				console.log(lonlat2.toShortString());
 				marker2 = new Tmap.Marker(lonlat2, icon2);
 				markerLayer2.addMarker(marker2);
-				
+
 				popup2 = new Tmap.Popup("p10", lonlat2, new Tmap.Size(140, 140), content2, true);//마우스 오버 팝업
 				popup22 = new Tmap.Popup("p20", lonlat2, new Tmap.Size(140, 140), content2, true);//마우스 클릭 팝업
 				map.addPopup(popup2);
 				map.addPopup(popup22);
 				popup2.hide();
 			    popup22.hide();
-        
+
 				//마커 이벤트등록
 			    marker2.events.register("mouseover", popup2, onOverMarker);
 			    function onOverMarker(evt) {
-			      this.show(); //마커에 마우스가 오버되었을 때 팝업이 보입니다. 
+			      this.show(); //마커에 마우스가 오버되었을 때 팝업이 보입니다.
 			    }
 			    marker2.events.register("mouseout", popup2, onOutMarker);
 			    function onOutMarker(evt) {
@@ -249,7 +249,7 @@ markerLayer2 = new Tmap.Layer.Markers();
 			    }
 			    marker2.events.register("click", popup22, onClickMarker);
 			    function onClickMarker(evt) {
-			    	this.show(); //마커에 마우스가 클릭되었을 때 팝업이 보입니다. 
+			    	this.show(); //마커에 마우스가 클릭되었을 때 팝업이 보입니다.
 				}
         });
 	    }
@@ -263,8 +263,8 @@ var cnt = 1;
 		if(cnt == count){
 			cnt = 0;
 			//리셋
-	  markerLayer0.clearMarkers();   
-      markerLayer1.clearMarkers(); 
+	  markerLayer0.clearMarkers();
+      markerLayer1.clearMarkers();
       markerLayer2.clearMarkers();
 
     }
