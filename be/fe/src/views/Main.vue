@@ -102,7 +102,7 @@
     <v-flex xs2 sm2
     v-for="(trashbin,index) in trashbins"
     :key="index"
-    class="ml-2">
+    class="ml-2 mt-2 mb-2">
       <v-card >
         <v-card-title primary-title>
           <div>
@@ -223,20 +223,6 @@
         </v-card-actions>
       </v-card>
     </v-flex>
-    <GmapMap
-      v-bind:center="{lat:37.555, lng:127}"
-      v-bind:zoom="11.5"
-      map-type-id="terrain"
-      style="width: 500px; height: 200px"
-    >
-    <GmapMarker
-      v-bind:key="index"
-      v-for="(m, index) in markers"
-      v-bind:position="m.position"
-      v-bind:clickable="false"
-      v-bind:draggable="false"
-    />
-    </GmapMap>
   </v-layout>
 
 </template>
@@ -246,7 +232,10 @@
   import firebase from 'firebase'
 
   let config = {
-
+    apiKey: "AIzaSyC_PXtAD4_mHIZDvBHwlilhY-c_AN3B0qY",
+    authDomain: "ertia-1555997688215.firebaseapp.com",
+    databaseURL: "https://ertia-1555997688215.firebaseio.com",
+    storageBucket: "gs://ertia-1555997688215.appspot.com/"
   }
 
   let fapp = firebase.initializeApp(config);

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.0">
+<Document>
+	<name>Tmap Position Control Sample</name>
+	<Placemark>
+		<name>12가 9876</name>
+		<number>80 %</number>
+		<affiliation>종로구</affiliation>
+		<Point>
+			<coordinates>126.9685264145542, 37.56806851568106</coordinates>
+			<distance>0</distance>
+			<speed>60</speed>
+			
+			<coordinates>126.96901457658782, 37.56801323970849</coordinates>
+			<distance>0.8</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.96917282692544, 37.56817481551288</coordinates>
+			<distance>1.5</distance>
+			<speed>70</speed>
+			
+			<coordinates>126.96951883188586, 37.56842355652641</coordinates>
+			<distance>2</distance>
+			<speed>68</speed>
+
+			<coordinates>126.96992116323581, 37.5686871785736</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.97044687620476, 37.569059224230735</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.97108524195278, 37.56949292082231</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.97157876841088, 37.56980756186718</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.97226004950076, 37.57000740075926</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.97278039805421, 37.5701136978226</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.97333829753406, 37.57012007564219</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.9739498411867, 37.57012007564219</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.9744111811429, 37.5701136978226</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.97476791493429, 37.57012857939959</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.9753794585959, 37.57015409066744</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.97584884517532, 37.57013708315673</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.9764684354512, 37.57015196472907</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.97694855087057, 37.57015834254469</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.97754936568326, 37.57017960192654</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.9780576442929, 37.57017109817494</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.97858067504517, 37.57015621660644</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.97894813768548, 37.57015196472907</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.97936119787535, 37.570143460974315</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.97983863107801, 37.570132831279</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.9805762385574, 37.57012220158145</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.98110731594187, 37.57011582376275</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.98170813076352, 37.570109445943515</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.98240550509985, 37.5701136978226</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.98296072236295, 37.5701136978226</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.98357226602458, 37.5701136978226</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.98404701701948, 37.57012432752066</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.98457809440393, 37.57013070533862</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.98493214598759, 37.57012645345979</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.98544176570108, 37.57011582376204</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.98590310565729, 37.57011794970214</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.9862893437518, 37.57011582376204</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.98680164567308, 37.5701136978226</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.98731662980208, 37.570111571882364</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.98766799918697, 37.57032416556282</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.9877511476629, 37.57065155864342</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.9878745292819, 37.57095343930028</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.98833318702138, 37.57118091194374</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+		</Point>
+	</Placemark>
+	
+</Document>
+</kml>

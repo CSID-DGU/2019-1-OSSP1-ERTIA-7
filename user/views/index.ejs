@@ -3,7 +3,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>simpleMap</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://api2.sktelecom.com/tmap/js?version=1&format=javascript&appKey="></script>
+        <script src="https://api2.sktelecom.com/tmap/js?version=1&format=javascript&appKey=8bad0cf0-5aab-43d7-8850-bfd489dd3cf2"></script>
 				<script type="text/javascript">
 
 				// 지도
@@ -173,6 +173,7 @@
       		            strokeColor: "#FF0000",
       		            strokeWidth: 3,
       		            strokeDashstyle: "solid",
+                      strokeOpacity:0.5,
       		            pointRadius: 2,
       		            title: "this is a red line"
       		       };
@@ -194,6 +195,7 @@
       			        strokeColor: "#FF0000",
       			        strokeWidth: 3,
       			        strokeDashstyle: "solid",
+                    strokeOpacity:0.5,
       			        pointRadius: 2,
       			        title: "this is a red line"
       			}
@@ -214,7 +216,7 @@
 			// 경유지 20개 이하
 			else if(tbs.length<=20){
 				console.log("call 20 points");
-      headers["appKey"]="";
+      headers["appKey"]="8bad0cf0-5aab-43d7-8850-bfd489dd3cf2";
       $.ajax({
       	type:"POST",
       	headers : headers,
@@ -251,6 +253,7 @@
       		            strokeColor: "#FF0000",
       		            strokeWidth: 3,
       		            strokeDashstyle: "solid",
+                      strokeOpacity:0.5,
       		            pointRadius: 2,
       		            title: "this is a red line"
       		       };
@@ -272,6 +275,7 @@
       			        strokeColor: "#FF0000",
       			        strokeWidth: 3,
       			        strokeDashstyle: "solid",
+                    strokeOpacity:0.5,
       			        pointRadius: 2,
       			        title: "this is a red line"
       			}
@@ -329,6 +333,7 @@
       		            strokeColor: "#FF0000",
       		            strokeWidth: 3,
       		            strokeDashstyle: "solid",
+                      strokeOpacity:0.5,
       		            pointRadius: 2,
       		            title: "this is a red line"
       		       };
@@ -350,6 +355,7 @@
       			        strokeColor: "#FF0000",
       			        strokeWidth: 3,
       			        strokeDashstyle: "solid",
+                    strokeOpacity:0.5,
       			        pointRadius: 2,
       			        title: "this is a red line"
       			}
@@ -406,6 +412,7 @@
       		            strokeColor: "#FF0000",
       		            strokeWidth: 3,
       		            strokeDashstyle: "solid",
+                      strokeOpacity:0.5,
       		            pointRadius: 2,
       		            title: "this is a red line"
       		       };
@@ -427,6 +434,7 @@
       			        strokeColor: "#FF0000",
       			        strokeWidth: 3,
       			        strokeDashstyle: "solid",
+                    strokeOpacity:0.5,
       			        pointRadius: 2,
       			        title: "this is a red line"
       			}
