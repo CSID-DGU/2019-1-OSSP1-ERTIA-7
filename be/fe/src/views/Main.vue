@@ -26,9 +26,9 @@
          <v-container grid-list-md>
            <v-layout wrap>
              <v-flex xs12 sm12>
-               <v-text-field 
+               <v-text-field
                v-model="newBT.title"
-               label="쓰레기통 이름" 
+               label="쓰레기통 이름"
                required></v-text-field>
              </v-flex>
              <v-flex xs12 sm12>
@@ -40,17 +40,17 @@
                ></v-select>
              </v-flex>
              <v-flex xs6 sm6>
-               <v-text-field 
+               <v-text-field
                v-model="newBT.lat"
-               ref = "trashLat" 
-               label="좌표 위도" 
+               ref = "trashLat"
+               label="좌표 위도"
                required></v-text-field>
              </v-flex>
              <v-flex xs6 sm6>
-               <v-text-field 
+               <v-text-field
                v-model="newBT.long"
-               ref = "trashLng" 
-               label="좌표 경도" 
+               ref = "trashLng"
+               label="좌표 경도"
                required></v-text-field>
              </v-flex>
              <!-- <GmapMap
@@ -132,9 +132,9 @@
                 <v-container grid-list-md>
                   <v-layout wrap>
                     <v-flex xs12 sm12>
-                      <v-text-field 
+                      <v-text-field
                       v-model="editBT.title"
-                      label="쓰레기통 이름" 
+                      label="쓰레기통 이름"
                       required></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm12>
@@ -146,15 +146,15 @@
                       ></v-select>
                     </v-flex>
                     <v-flex xs6 sm6>
-                      <v-text-field 
+                      <v-text-field
                       v-model="editBT.lat"
-                      label="좌표 위도" 
+                      label="좌표 위도"
                       required></v-text-field>
                     </v-flex>
                     <v-flex xs6 sm6>
-                      <v-text-field 
+                      <v-text-field
                       v-model="editBT.long"
-                      label="좌표 경도" 
+                      label="좌표 경도"
                       required></v-text-field>
                     </v-flex>
                     <!-- <GmapMap
@@ -223,8 +223,21 @@
         </v-card-actions>
       </v-card>
     </v-flex>
+    <GmapMap
+      v-bind:center="{lat:37.555, lng:127}"
+      v-bind:zoom="11.5"
+      map-type-id="terrain"
+      style="width: 500px; height: 200px"
+    >
+    <GmapMarker
+      v-bind:key="index"
+      v-for="(m, index) in markers"
+      v-bind:position="m.position"
+      v-bind:clickable="false"
+      v-bind:draggable="false"
+    />
+    </GmapMap>
   </v-layout>
-
 
 </template>
 
@@ -233,7 +246,7 @@
   import firebase from 'firebase'
 
   let config = {
-  
+
   }
 
   let fapp = firebase.initializeApp(config);
@@ -320,13 +333,13 @@
         this.newBT.lat= place.latLng.lat()
         this.newBT.long= place.latLng.lng()
         console.log('lat: ' + place.latLng.lat())
-        console.log('lng: ' + place.latLng.lng()) 
+        console.log('lng: ' + place.latLng.lng())
       },
       getMarkerPositionEdit(place) {
         this.editBT.lat= place.latLng.lat()
         this.editBT.long= place.latLng.lng()
         console.log('lat: ' + place.latLng.lat())
-        console.log('lng: ' + place.latLng.lng()) 
+        console.log('lng: ' + place.latLng.lng())
       }
     }
   }
