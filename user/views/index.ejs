@@ -1,12 +1,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>simpleMap</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://api2.sktelecom.com/tmap/js?version=1&format=javascript&appKey=8bad0cf0-5aab-43d7-8850-bfd489dd3cf2"></script>
-				<script type="text/javascript">
+        <script src="https://api2.sktelecom.com/tmap/js?version=1&format=javascript&appKey="></script>
+		<script type="text/javascript">
 
-				// 지도
+			// map init
 			function initTmap(){
 				var map = new Tmap.Map({
 					div:'map_div',
@@ -14,66 +16,81 @@
 					height : "full",
 				});
 
-								// 보여줄 경유지 개수
-								var datasize = <%= datasize %>;
-								console.log(datasize);
-								var startX = <%= sX %>;
-								var startY = <%= sY %>;
+				// 보여줄 경유지 개수
+				var datasize = <%= datasize %>;
+				//console.log(datasize);
 
-								console.log(startX);
-								console.log(startY);
+				// 시작 및 끝 위치
+				var startX = <%= sX %>;
+				var startY = <%= sY %>;
 
-								// database에서 경유지 정보 받기
-								var tbs = "<%= JSON.stringify(row) %>";
-								tbs=tbs.replace(/(&#34;)/g,'\"');
-								tbs=JSON.parse(tbs);
-								//console.log(tbs);
+				//console.log(startX);
+				//console.log(startY);
 
+				// database에서 경유지 정보 받기
+				var tbs = "<%= JSON.stringify(row) %>";
+				tbs=tbs.replace(/(&#34;)/g,'\"');
+				tbs=JSON.parse(tbs);
+				//console.log(tbs);
+
+				// map center
 				map.setCenter(new Tmap.LonLat("126.986072", "37.570028").transform("EPSG:4326", "EPSG:3857"), 15);
-        routeLayer = new Tmap.Layer.Vector("route");
-        map.addLayer(routeLayer);
+        		routeLayer = new Tmap.Layer.Vector("route");
+        		map.addLayer(routeLayer);
 
-        markerStartLayer = new Tmap.Layer.Markers("start");
-        markerEndLayer = new Tmap.Layer.Markers("end");
-        markerWaypointLayer = new Tmap.Layer.Markers("waypoint");
+				// start point
+				markerStartLayer = new Tmap.Layer.Markers("start");
+				// end point
+				markerEndLayer = new Tmap.Layer.Markers("end");
+				// way point
+        		markerWaypointLayer = new Tmap.Layer.Markers("waypoint");
 
-        pointLayer = new Tmap.Layer.Vector("point");
-        // 시점, 종점 마커찍기
-        // 시점
-        map.addLayer(markerStartLayer);
+				pointLayer = new Tmap.Layer.Vector("point");
 
-        var size = new Tmap.Size(24, 38);
-        var offset = new Tmap.Pixel(-(size.w / 2), -size.h);
-        var icon = new Tmap.IconHtml("<img src='http://tmapapis.sktelecom.com/upload/tmap/marker/pin_r_m_s.png' />", size, offset);
-        var marker_s = new Tmap.Marker(new Tmap.LonLat(startX, startY).transform("EPSG:4326", "EPSG:3857"), icon);
-        markerStartLayer.addMarker(marker_s);
+        		// start and end point marker
+        		// start point marker
+        		map.addLayer(markerStartLayer);
 
-        // 종점
-        map.addLayer(markerEndLayer);
+				// size, offset etc set
+        		var size = new Tmap.Size(24, 38);
+        		var offset = new Tmap.Pixel(-(size.w / 2), -size.h);
+        		var icon = new Tmap.IconHtml("<img src='http://tmapapis.sktelecom.com/upload/tmap/marker/pin_r_m_s.png' />", size, offset);
+				var marker_s = new Tmap.Marker(new Tmap.LonLat(startX, startY).transform("EPSG:4326", "EPSG:3857"), icon);
+				// add marker
+        		markerStartLayer.addMarker(marker_s);
 
-        var size = new Tmap.Size(24, 38);
-        var offset = new Tmap.Pixel(-(size.w / 2), -size.h);
-        var icon = new Tmap.IconHtml("<img src='http://tmapapis.sktelecom.com/upload/tmap/marker/pin_r_m_e.png' />", size, offset);
-        var marker_e = new Tmap.Marker(new Tmap.LonLat(startX, startY).transform("EPSG:4326", "EPSG:3857"), icon);
-        markerEndLayer.addMarker(marker_e);
+        		// end point marker
+        		map.addLayer(markerEndLayer);
 
+				// size, offset etc set
+        		var size = new Tmap.Size(24, 38);
+        		var offset = new Tmap.Pixel(-(size.w / 2), -size.h);
+        		var icon = new Tmap.IconHtml("<img src='http://tmapapis.sktelecom.com/upload/tmap/marker/pin_r_m_e.png' />", size, offset);
+        		var marker_e = new Tmap.Marker(new Tmap.LonLat(startX, startY).transform("EPSG:4326", "EPSG:3857"), icon);
+				// add marker
+				markerEndLayer.addMarker(marker_e);
+
+				// if there are no trashbins match
 				if(datasize==0){
-					//nothing
+					// do nothing
 				}
 				else{
-        // 경유지 마커 찍기
-        map.addLayer(markerWaypointLayer);
+        			// waypoint marker
+        			map.addLayer(markerWaypointLayer);
 
-        var size = new Tmap.Size(24, 38);
-        var offset = new Tmap.Pixel(-(size.w / 2), -size.h);
+        			var size = new Tmap.Size(24, 38);
+        			var offset = new Tmap.Pixel(-(size.w / 2), -size.h);
 
-				for(var i=0; i< tbs.length; i++){
-					console.log(tbs[i].lat);
-					var icon = new Tmap.IconHtml("<img src='http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_m_f.png' />", size, offset);
-					var marker = new Tmap.Marker(new Tmap.LonLat(tbs[i].long, tbs[i].lat).transform("EPSG:4326", "EPSG:3857"), icon);
-					markerWaypointLayer.addMarker(marker);
+					// add waypoint order by district
+					for(var i=0; i< tbs.length; i++){
+						//console.log(tbs[i].lat);
+
+						var icon = new Tmap.IconHtml("<img src='http://tmapapis.sktelecom.com/upload/tmap/marker/pin_b_m_f.png' />", size, offset);
+						var marker = new Tmap.Marker(new Tmap.LonLat(tbs[i].long, tbs[i].lat).transform("EPSG:4326", "EPSG:3857"), icon);
+						// add waypoint marker
+						markerWaypointLayer.addMarker(marker);
+					}
 				}
-			}
 
 				// 경유지 정보 폼에 맞게
 				/* viaPointId trashbin ID
@@ -82,68 +99,87 @@
 					 viaY trashbin latitude
 					 viaTime 600 fixed
 				*/
+
 				var viaArr=new Array();
+
+				// add waypoint for route optimization
 				for(var i=0; i<tbs.length; i++){
 					var temp=new Object();
+
 					temp.viaPointId = tbs[i].name;
 					temp.viaPointName = tbs[i].name;
 					temp.viaX = JSON.stringify(tbs[i].long);
 					temp.viaY = JSON.stringify(tbs[i].lat);
-					temp.viaTime = "600";
+					temp.viaTime = "600";		// default
 
 					viaArr.push(temp);
 				}
+
+				// start point for route optimization
 				var viastartX=JSON.stringify(startX);
 				var viastartY=JSON.stringify(startY);
 				//console.log(viaArr);
+
+				/* for static web */
+
 				//var viaArrJson=JSON.stringify(viaArr);
 				//console.log(viaArrJson);
 				// var temp2=JSON.stringify({
-      	// 				  "reqCoordType": "WGS84GEO",
-      	// 				  "resCoordType" : "EPSG3857",
-      	// 				  "startName": "출발",
-      	// 				  "startX": "126.98605733268329",
-      	// 				  "startY": "37.568085523663385",
-      	// 				  "startTime": "201711121314",
-      	// 				  "endName": "도착",
-      	// 				  "endX": "127.00973587385866",
-      	// 				  "endY": "37.56445848334345",
-      	// 				  "searchOption" : "0",
-				// 					"viaPoints": viaArr });
+      			// 	"reqCoordType": "WGS84GEO",
+      			// 	"resCoordType" : "EPSG3857",
+      			// 	"startName": "출발",
+      			// 	"startX": "126.98605733268329",
+      			// 	"startY": "37.568085523663385",
+      			// 	"startTime": "201711121314",
+      			// 	"endName": "도착",
+      			// 	"endX": "127.00973587385866",
+      			// 	"endY": "37.56445848334345",
+      			// 	"searchOption" : "0",
+				// "viaPoints": viaArr });
 				// console.log(temp2);
-      // 경유지 최적화 API 사용요청
-      var prtcl;
-			var headers = {};
 
-			// start
-			// data: JSON.stringify({
-      // 					  "reqCoordType": "WGS84GEO",
-      // 					  "resCoordType" : "EPSG3857",
-      // 					  "startName": "출발",
-      // 					  "startX": "126.98605733268329",
-      // 					  "startY": "37.568085523663385",
-      // 					  "startTime": "201711121314",
-      // 					  "endName": "도착",
-      // 					  "endX": "127.00973587385866",
-      // 					  "endY": "37.56445848334345",
-      // 					  "searchOption" : "0",
-      // 					  "viaPoints": viaArr,
-      // 	}),
 
-			if(datasize==0){
-				// nothing
-			}
-			// 경유지 10개 이하
-			else if(tbs.length<=10){
-				console.log("call 10 points");
-      headers["appKey"]="8bad0cf0-5aab-43d7-8850-bfd489dd3cf2";
-      $.ajax({
-      	type:"POST",
-      	headers : headers,
-      	url:"https://api2.sktelecom.com/tmap/routes/routeOptimization10?version=1&format=xml",//
-      	async:false,
-      	contentType: "application/json",
-      	data: JSON.stringify({
+      			// 경유지 최적화 API 사용요청
+      			var prtcl;
+				var headers = {};
+
+				/* for static web */
+
+				// start
+				// data: JSON.stringify({
+      			// 					  "reqCoordType": "WGS84GEO",
+      			// 					  "resCoordType" : "EPSG3857",
+      			// 					  "startName": "출발",
+      			// 					  "startX": "126.98605733268329",
+      			// 					  "startY": "37.568085523663385",
+      			// 					  "startTime": "201711121314",
+      			// 					  "endName": "도착",
+      			// 					  "endX": "127.00973587385866",
+      			// 					  "endY": "37.56445848334345",
+      			// 					  "searchOption" : "0",
+      			// 					  "viaPoints": viaArr,
+      			// 	}),
+
+				// if there are no trashbins matches
+				if(datasize==0){
+					// do nothing
+				}
+
+				// datasize small than 10
+				else if(tbs.length<=10){
+					//console.log("call 10 points");
+
+					// request route optimization 10
+					headers["appKey"]="";
+
+      				$.ajax({
+      					type:"POST",
+      					headers : headers,
+      					url:"https://api2.sktelecom.com/tmap/routes/routeOptimization10?version=1&format=xml",//
+      					async:false,
+						contentType: "application/json",
+
+      					data: JSON.stringify({
       					  "reqCoordType": "WGS84GEO",
       					  "resCoordType" : "EPSG3857",
       					  "startName": "출발",
@@ -155,75 +191,86 @@
       					  "endY": viastartY,
       					  "searchOption" : "0",
       					  "viaPoints": viaArr,
-      	}),
-      	success:function(response){
-      		prtcl = response;
+						}),
 
-      			// 경유지 최적화 결과 Line 그리기
-      			//경유지 최적화 결과 POINT 찍기
-      			/* -------------- Geometry.Point -------------- */
-      			var pointLayer = new Tmap.Layer.Vector("point");
-      			var prtclString = new XMLSerializer().serializeToString(prtcl);//xml to String
-      		    xmlDoc = $.parseXML( prtclString ),
-      		    $xml = $( xmlDoc ),
-      		    $intRate = $xml.find("Placemark");
-      		    var style_red = {
-      		            fillColor:"#FF0000",
-      		            fillOpacity:0.2,
-      		            strokeColor: "#FF0000",
-      		            strokeWidth: 3,
-      		            strokeDashstyle: "solid",
-                      strokeOpacity:0.5,
-      		            pointRadius: 2,
-      		            title: "this is a red line"
-      		       };
-      		    $intRate.each(function(index, element) {
-      		    	var nodeType = element.getElementsByTagName("tmap:nodeType")[0].childNodes[0].nodeValue;
-      				if(nodeType == "POINT"){
-      					var point = element.getElementsByTagName("coordinates")[0].childNodes[0].nodeValue.split(',');
-      					var geoPoint =new Tmap.Geometry.Point(point[0],point[1]);
-      					var pointFeature = new Tmap.Feature.Vector(geoPoint, null, style_red);
-      					pointLayer.addFeatures([pointFeature]);
+					// if success request route optimization
+      				success:function(response){
+      					prtcl = response;
+
+      					// optimization result draw line
+      					// and result draw point
+      					/* -------------- Geometry.Point -------------- */
+      					var pointLayer = new Tmap.Layer.Vector("point");
+						var prtclString = new XMLSerializer().serializeToString(prtcl);//xml to String
+
+      		    		xmlDoc = $.parseXML( prtclString ),
+      		    		$xml = $( xmlDoc ),
+						$intRate = $xml.find("Placemark");
+
+						// set color and etc setting
+      		    		var style_red = {
+      		            	fillColor:"#FF0000",
+      		            	fillOpacity:0.2,
+      		            	strokeColor: "#FF0000",
+      		            	strokeWidth: 3,
+      		            	strokeDashstyle: "solid",
+                        strokeOpacity: 0.5,
+      		            	pointRadius: 2,
+      		            	title: "this is a red line"
+						};
+
+      		    		$intRate.each(function(index, element) {
+      		    			var nodeType = element.getElementsByTagName("tmap:nodeType")[0].childNodes[0].nodeValue;
+      						if(nodeType == "POINT"){
+      							var point = element.getElementsByTagName("coordinates")[0].childNodes[0].nodeValue.split(',');
+      							var geoPoint =new Tmap.Geometry.Point(point[0],point[1]);
+      							var pointFeature = new Tmap.Feature.Vector(geoPoint, null, style_red);
+      							pointLayer.addFeatures([pointFeature]);
+      						}
+      		    		});
+						map.addLayer(pointLayer);
+
+      		   			/* -------------- Geometry.Point -------------- */
+      		    		//경유지 최적화 결과 Line 그리기
+      					routeLayer.style ={
+      						fillColor:"#FF0000",
+      			       	 	fillOpacity:0.2,
+      			 	       	strokeColor: "#FF0000",
+      			        	strokeWidth: 3,
+      				        strokeDashstyle: "solid",
+                      strokeOpacity: 0.5,
+      			        	pointRadius: 2,
+      			        	title: "this is a red line"
+      					}
+      					var kmlForm = new Tmap.Format.KML().read(prtcl);
+      		    		routeLayer.addFeatures(kmlForm);
+
+
+      					// 경유지 최적화 결과 반경만큼 지도 레벨 조정
+      					map.zoomToExtent(routeLayer.getDataExtent());
+
+					},
+
+					// if didn't get result from server
+      				error:function(request,status,error){
+      					console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
       				}
-      		    });
-      		    map.addLayer(pointLayer);
-      		    /* -------------- Geometry.Point -------------- */
-      		    //경유지 최적화 결과 Line 그리기
-      			routeLayer.style ={
-      					fillColor:"#FF0000",
-      			        fillOpacity:0.2,
-      			        strokeColor: "#FF0000",
-      			        strokeWidth: 3,
-      			        strokeDashstyle: "solid",
-                    strokeOpacity:0.5,
-      			        pointRadius: 2,
-      			        title: "this is a red line"
-      			}
-      			var kmlForm = new Tmap.Format.KML().read(prtcl);
-      		    routeLayer.addFeatures(kmlForm);
+					});
+				}
 
+				// datasize small than 20
+				else if(tbs.length<=20){
+					// console.log("call 20 points");
 
-      			// 경유지 최적화 결과 반경만큼 지도 레벨 조정
-      			map.zoomToExtent(routeLayer.getDataExtent());
-
-      		},
-      		error:function(request,status,error){
-      			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-      		}
-				});
-			}
-
-			// 경유지 20개 이하
-			else if(tbs.length<=20){
-				console.log("call 20 points");
-      headers["appKey"]="8bad0cf0-5aab-43d7-8850-bfd489dd3cf2";
-      $.ajax({
-      	type:"POST",
-      	headers : headers,
-      	url:"https://api2.sktelecom.com/tmap/routes/routeOptimization20?version=1&format=xml",//
-      	async:false,
-      	contentType: "application/json",
-      	data: JSON.stringify({
+					// request route optimization 20
+      				headers["appKey"]="";
+      				$.ajax({
+      					type:"POST",
+      					headers : headers,
+      					url:"https://api2.sktelecom.com/tmap/routes/routeOptimization20?version=1&format=xml",//
+      					async:false,
+      					contentType: "application/json",
+      					data: JSON.stringify({
       					  "reqCoordType": "WGS84GEO",
       					  "resCoordType" : "EPSG3857",
       					  "startName": "출발",
@@ -235,75 +282,87 @@
       					  "endY": "37.56445848334345",
       					  "searchOption" : "0",
       					  "viaPoints": viaArr,
-      	}),
-      	success:function(response){
-      		prtcl = response;
+						}),
 
-      			// 경유지 최적화 결과 Line 그리기
-      			//경유지 최적화 결과 POINT 찍기
-      			/* -------------- Geometry.Point -------------- */
-      			var pointLayer = new Tmap.Layer.Vector("point");
-      			var prtclString = new XMLSerializer().serializeToString(prtcl);//xml to String
-      		    xmlDoc = $.parseXML( prtclString ),
-      		    $xml = $( xmlDoc ),
-      		    $intRate = $xml.find("Placemark");
-      		    var style_red = {
-      		            fillColor:"#FF0000",
-      		            fillOpacity:0.2,
-      		            strokeColor: "#FF0000",
-      		            strokeWidth: 3,
-      		            strokeDashstyle: "solid",
-                      strokeOpacity:0.5,
-      		            pointRadius: 2,
-      		            title: "this is a red line"
-      		       };
-      		    $intRate.each(function(index, element) {
-      		    	var nodeType = element.getElementsByTagName("tmap:nodeType")[0].childNodes[0].nodeValue;
-      				if(nodeType == "POINT"){
-      					var point = element.getElementsByTagName("coordinates")[0].childNodes[0].nodeValue.split(',');
-      					var geoPoint =new Tmap.Geometry.Point(point[0],point[1]);
-      					var pointFeature = new Tmap.Feature.Vector(geoPoint, null, style_red);
-      					pointLayer.addFeatures([pointFeature]);
-      				}
-      		    });
-      		    map.addLayer(pointLayer);
-      		    /* -------------- Geometry.Point -------------- */
-      		    //경유지 최적화 결과 Line 그리기
-      			routeLayer.style ={
-      					fillColor:"#FF0000",
-      			        fillOpacity:0.2,
-      			        strokeColor: "#FF0000",
-      			        strokeWidth: 3,
-      			        strokeDashstyle: "solid",
-                    strokeOpacity:0.5,
-      			        pointRadius: 2,
-      			        title: "this is a red line"
-      			}
-      			var kmlForm = new Tmap.Format.KML().read(prtcl);
-      		    routeLayer.addFeatures(kmlForm);
+						// if success to get result
+      					success:function(response){
+      						prtcl = response;
+
+      						// 경유지 최적화 결과 Line 그리기
+      						// 경유지 최적화 결과 POINT 찍기
+      						/* -------------- Geometry.Point -------------- */
+      						var pointLayer = new Tmap.Layer.Vector("point");
+							var prtclString = new XMLSerializer().serializeToString(prtcl);//xml to String
+
+      		    			xmlDoc = $.parseXML( prtclString ),
+      		    			$xml = $( xmlDoc ),
+							$intRate = $xml.find("Placemark");
+
+      		    			var style_red = {
+      		            		fillColor:"#FF0000",
+      		            		fillOpacity:0.2,
+      		            		strokeColor: "#FF0000",
+      		            		strokeWidth: 3,
+      		            		strokeDashstyle: "solid",
+                          strokeOpacity: 0.5,
+      		            		pointRadius: 2,
+      		            		title: "this is a red line"
+							};
+
+      		    			$intRate.each(function(index, element) {
+								var nodeType = element.getElementsByTagName("tmap:nodeType")[0].childNodes[0].nodeValue;
+
+      							if(nodeType == "POINT"){
+      								var point = element.getElementsByTagName("coordinates")[0].childNodes[0].nodeValue.split(',');
+      								var geoPoint =new Tmap.Geometry.Point(point[0],point[1]);
+      								var pointFeature = new Tmap.Feature.Vector(geoPoint, null, style_red);
+      								pointLayer.addFeatures([pointFeature]);
+      							}
+      		    			});
+							map.addLayer(pointLayer);
+
+      		    			/* -------------- Geometry.Point -------------- */
+      		    			//경유지 최적화 결과 Line 그리기
+      						routeLayer.style ={
+      							fillColor:"#FF0000",
+      			    			fillOpacity:0.2,
+      			        		strokeColor: "#FF0000",
+      			        		strokeWidth: 3,
+      			        		strokeDashstyle: "solid",
+                        strokeOpacity: 0.5,
+      			        		pointRadius: 2,
+      			        		title: "this is a red line"
+							}
+
+      						var kmlForm = new Tmap.Format.KML().read(prtcl);
+      		    			routeLayer.addFeatures(kmlForm);
 
 
-      			// 경유지 최적화 결과 반경만큼 지도 레벨 조정
-      			map.zoomToExtent(routeLayer.getDataExtent());
+      						// 경유지 최적화 결과 반경만큼 지도 레벨 조정
+      						map.zoomToExtent(routeLayer.getDataExtent());
 
-      		},
-      		error:function(request,status,error){
-      			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-      		}
-				});
-			}
+						},
 
-			// 경유지 30개 이하
-			else if(tbs.length<=30){
-				console.log("call 30 points");
-      headers["appKey"]="8bad0cf0-5aab-43d7-8850-bfd489dd3cf2";
-      $.ajax({
-      	type:"POST",
-      	headers : headers,
-      	url:"https://api2.sktelecom.com/tmap/routes/routeOptimization30?version=1&format=xml",//
-      	async:false,
-      	contentType: "application/json",
-      	data: JSON.stringify({
+						// if didn't get result from server
+      					error:function(request,status,error){
+      						console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+      					}
+					});
+				}
+
+				// 경유지 30개 이하
+				else if(tbs.length<=30){
+					//console.log("call 30 points");
+
+					// request route optimization 30
+      				headers["appKey"]="";
+      				$.ajax({
+      					type:"POST",
+      					headers : headers,
+      					url:"https://api2.sktelecom.com/tmap/routes/routeOptimization30?version=1&format=xml",//
+      					async:false,
+      					contentType: "application/json",
+      					data: JSON.stringify({
       					  "reqCoordType": "WGS84GEO",
       					  "resCoordType" : "EPSG3857",
       					  "startName": "출발",
@@ -315,75 +374,84 @@
       					  "endY": "37.56445848334345",
       					  "searchOption" : "0",
       					  "viaPoints": viaArr,
-      	}),
-      	success:function(response){
-      		prtcl = response;
+						}),
 
-      			// 경유지 최적화 결과 Line 그리기
-      			//경유지 최적화 결과 POINT 찍기
-      			/* -------------- Geometry.Point -------------- */
-      			var pointLayer = new Tmap.Layer.Vector("point");
-      			var prtclString = new XMLSerializer().serializeToString(prtcl);//xml to String
-      		    xmlDoc = $.parseXML( prtclString ),
-      		    $xml = $( xmlDoc ),
-      		    $intRate = $xml.find("Placemark");
-      		    var style_red = {
-      		            fillColor:"#FF0000",
-      		            fillOpacity:0.2,
-      		            strokeColor: "#FF0000",
-      		            strokeWidth: 3,
-      		            strokeDashstyle: "solid",
-                      strokeOpacity:0.5,
-      		            pointRadius: 2,
-      		            title: "this is a red line"
-      		       };
-      		    $intRate.each(function(index, element) {
-      		    	var nodeType = element.getElementsByTagName("tmap:nodeType")[0].childNodes[0].nodeValue;
-      				if(nodeType == "POINT"){
-      					var point = element.getElementsByTagName("coordinates")[0].childNodes[0].nodeValue.split(',');
-      					var geoPoint =new Tmap.Geometry.Point(point[0],point[1]);
-      					var pointFeature = new Tmap.Feature.Vector(geoPoint, null, style_red);
-      					pointLayer.addFeatures([pointFeature]);
-      				}
-      		    });
-      		    map.addLayer(pointLayer);
-      		    /* -------------- Geometry.Point -------------- */
-      		    //경유지 최적화 결과 Line 그리기
-      			routeLayer.style ={
-      					fillColor:"#FF0000",
-      			        fillOpacity:0.2,
-      			        strokeColor: "#FF0000",
-      			        strokeWidth: 3,
-      			        strokeDashstyle: "solid",
-                    strokeOpacity:0.5,
-      			        pointRadius: 2,
-      			        title: "this is a red line"
-      			}
-      			var kmlForm = new Tmap.Format.KML().read(prtcl);
-      		    routeLayer.addFeatures(kmlForm);
+						// if success to get result
+      					success:function(response){
+      						prtcl = response;
+
+      						// 경유지 최적화 결과 Line 그리기
+      						//경유지 최적화 결과 POINT 찍기
+      						/* -------------- Geometry.Point -------------- */
+      						var pointLayer = new Tmap.Layer.Vector("point");
+							var prtclString = new XMLSerializer().serializeToString(prtcl);//xml to String
+
+      		    			xmlDoc = $.parseXML( prtclString ),
+      		    			$xml = $( xmlDoc ),
+							$intRate = $xml.find("Placemark");
+
+      		    			var style_red = {
+      		            		fillColor:"#FF0000",
+      		            		fillOpacity:0.2,
+      		            		strokeColor: "#FF0000",
+      		            		strokeWidth: 3,
+      		            		strokeDashstyle: "solid",
+                          strokeOpacity: 0.5,
+      		            		pointRadius: 2,
+      		            		title: "this is a red line"
+							};
+
+      		    			$intRate.each(function(index, element) {
+      		    				var nodeType = element.getElementsByTagName("tmap:nodeType")[0].childNodes[0].nodeValue;
+      							if(nodeType == "POINT"){
+      								var point = element.getElementsByTagName("coordinates")[0].childNodes[0].nodeValue.split(',');
+      								var geoPoint =new Tmap.Geometry.Point(point[0],point[1]);
+      								var pointFeature = new Tmap.Feature.Vector(geoPoint, null, style_red);
+      								pointLayer.addFeatures([pointFeature]);
+      							}
+      		    			});
+							map.addLayer(pointLayer);
+
+      		    			/* -------------- Geometry.Point -------------- */
+      		    			//경유지 최적화 결과 Line 그리기
+      						routeLayer.style ={
+      							fillColor:"#FF0000",
+      			        		fillOpacity:0.2,
+      			        		strokeColor: "#FF0000",
+      			        		strokeWidth: 3,
+      			        		strokeDashstyle: "solid",
+                        strokeOpacity: 0.5,
+      			        		pointRadius: 2,
+      			        		title: "this is a red line"
+      						}
+      						var kmlForm = new Tmap.Format.KML().read(prtcl);
+      		    			routeLayer.addFeatures(kmlForm);
 
 
-      			// 경유지 최적화 결과 반경만큼 지도 레벨 조정
-      			map.zoomToExtent(routeLayer.getDataExtent());
+      						// 경유지 최적화 결과 반경만큼 지도 레벨 조정
+      						map.zoomToExtent(routeLayer.getDataExtent());
 
-      		},
-      		error:function(request,status,error){
-      			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-      		}
-				});
-			}
+      					},
+      					error:function(request,status,error){
+      						console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+      					}
+					});
+				}
 
-			// 경유지 100개 이하
-			else if(tbs.length<=100){
-				console.log("call 100 points");
-      headers["appKey"]="8bad0cf0-5aab-43d7-8850-bfd489dd3cf2";
-      $.ajax({
-      	type:"POST",
-      	headers : headers,
-      	url:"https://api2.sktelecom.com/tmap/routes/routeOptimization100?version=1&format=xml",//
-      	async:false,
-      	contentType: "application/json",
-      	data: JSON.stringify({
+				// datasize small than 100
+				else if(tbs.length<=100){
+					// console.log("call 100 points");
+
+					// request route optimization 100
+      				headers["appKey"]="";
+      				$.ajax({
+      					type:"POST",
+      					headers : headers,
+      					url:"https://api2.sktelecom.com/tmap/routes/routeOptimization100?version=1&format=xml",//
+      					async:false,
+						contentType: "application/json",
+
+      					data: JSON.stringify({
       					  "reqCoordType": "WGS84GEO",
       					  "resCoordType" : "EPSG3857",
       					  "startName": "출발",
@@ -395,73 +463,83 @@
       					  "endY": "37.56445848334345",
       					  "searchOption" : "0",
       					  "viaPoints": viaArr,
-      	}),
-      	success:function(response){
-      		prtcl = response;
+						}),
 
-      			//경유지 최적화 결과 POINT 찍기
-      			/* -------------- Geometry.Point -------------- */
-      			var pointLayer = new Tmap.Layer.Vector("point");
-      			var prtclString = new XMLSerializer().serializeToString(prtcl);//xml to String
-      		    xmlDoc = $.parseXML( prtclString ),
-      		    $xml = $( xmlDoc ),
-      		    $intRate = $xml.find("Placemark");
-      		    var style_red = {
-      		            fillColor:"#FF0000",
-      		            fillOpacity:0.2,
-      		            strokeColor: "#FF0000",
-      		            strokeWidth: 3,
-      		            strokeDashstyle: "solid",
-                      strokeOpacity:0.5,
-      		            pointRadius: 2,
-      		            title: "this is a red line"
-      		       };
-      		    $intRate.each(function(index, element) {
-      		    	var nodeType = element.getElementsByTagName("tmap:nodeType")[0].childNodes[0].nodeValue;
-      				if(nodeType == "POINT"){
-      					var point = element.getElementsByTagName("coordinates")[0].childNodes[0].nodeValue.split(',');
-      					var geoPoint =new Tmap.Geometry.Point(point[0],point[1]);
-      					var pointFeature = new Tmap.Feature.Vector(geoPoint, null, style_red);
-      					pointLayer.addFeatures([pointFeature]);
-      				}
-      		    });
-      		    map.addLayer(pointLayer);
-      		    /* -------------- Geometry.Point -------------- */
-      		    //경유지 최적화 결과 Line 그리기
-      			routeLayer.style ={
-      					fillColor:"#FF0000",
-      			        fillOpacity:0.2,
-      			        strokeColor: "#FF0000",
-      			        strokeWidth: 3,
-      			        strokeDashstyle: "solid",
-                    strokeOpacity:0.5,
-      			        pointRadius: 2,
-      			        title: "this is a red line"
-      			}
-      			var kmlForm = new Tmap.Format.KML().read(prtcl);
-      		    routeLayer.addFeatures(kmlForm);
+						// if success to get result
+      					success:function(response){
+      						prtcl = response;
+
+      						//경유지 최적화 결과 POINT 찍기
+      						/* -------------- Geometry.Point -------------- */
+      						var pointLayer = new Tmap.Layer.Vector("point");
+      						var prtclString = new XMLSerializer().serializeToString(prtcl);//xml to String
+
+							xmlDoc = $.parseXML( prtclString ),
+      		    			$xml = $( xmlDoc ),
+      		    			$intRate = $xml.find("Placemark");
+
+							var style_red = {
+      		            		fillColor:"#FF0000",
+      		            		fillOpacity:0.2,
+      		            		strokeColor: "#FF0000",
+      		            		strokeWidth: 3,
+      		            		strokeDashstyle: "solid",
+                          strokeOpacity: 0.5,
+      		            		pointRadius: 2,
+      		            		title: "this is a red line"
+							};
+
+      		    			$intRate.each(function(index, element) {
+								var nodeType = element.getElementsByTagName("tmap:nodeType")[0].childNodes[0].nodeValue;
+
+      							if(nodeType == "POINT"){
+      								var point = element.getElementsByTagName("coordinates")[0].childNodes[0].nodeValue.split(',');
+      								var geoPoint =new Tmap.Geometry.Point(point[0],point[1]);
+      								var pointFeature = new Tmap.Feature.Vector(geoPoint, null, style_red);
+      								pointLayer.addFeatures([pointFeature]);
+      							}
+      		    			});
+							map.addLayer(pointLayer);
+
+      		    			/* -------------- Geometry.Point -------------- */
+      		    			//경유지 최적화 결과 Line 그리기
+      						routeLayer.style ={
+      							fillColor:"#FF0000",
+      			        		fillOpacity:0.2,
+      			        		strokeColor: "#FF0000",
+      			        		strokeWidth: 3,
+      			        		strokeDashstyle: "solid",
+                        strokeOpacity: 0.5,
+      			        		pointRadius: 2,
+      			        		title: "this is a red line"
+      						}
+      						var kmlForm = new Tmap.Format.KML().read(prtcl);
+      		    			routeLayer.addFeatures(kmlForm);
 
 
-      			// 경유지 최적화 결과 반경만큼 지도 레벨 조정
-      			map.zoomToExtent(routeLayer.getDataExtent());
+      						// 경유지 최적화 결과 반경만큼 지도 레벨 조정
+      						map.zoomToExtent(routeLayer.getDataExtent());
 
-      		},
-      		error:function(request,status,error){
-      			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-      		}
-				});
-			}
-			else{
-				//nothing
-			}
-			// end
+      					},
+      					error:function(request,status,error){
+      						console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+      					}
+					});
+				}
+				else{
+					// do nothing
+				}
+				// end
 			}
 
 		</script>
 		</head>
 
 		<body onload="initTmap()">
+
         <div id="map_div">
-				</div>
+
+		</div>
+
     </body>
 </html>

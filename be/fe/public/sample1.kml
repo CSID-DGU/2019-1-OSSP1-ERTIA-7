@@ -2,13 +2,18 @@
 <kml xmlns="http://earth.google.com/kml/2.0">
 <Document>
 	<name>Tmap Position Control Sample</name>
+
 	<Placemark>
+
 		<name>34나 9836</name>
 		
 		<number>50 %</number>
 		
 		<affiliation>동대문구</affiliation>
+
 		<Point>
+
+		
 			<coordinates>127.03815174102783, 37.57410787588832</coordinates>
 			<distance>0</distance>
 			<speed>60</speed>
@@ -176,8 +181,37 @@
 			<coordinates>127.03845174102783, 37.58250787588832</coordinates>
 			<distance>3</distance>
 			<speed>65</speed>
+
+			<coordinates>127.03845174102783, 37.58230787588832</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+
+			<coordinates>127.03845174102783, 37.58210787588832</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+
+			<coordinates>127.03845174102783, 37.58210787488832</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+
+			<coordinates>127.03845174102783, 37.58210787388832</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+
+			<coordinates>127.03845174102783, 37.58210787288832</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+
+			<coordinates>127.03845174102783, 37.58210787188832</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+
+			<coordinates>127.03845174102783, 37.58210787088832</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
 			
 		</Point>
+
 	</Placemark>
 	
 	
