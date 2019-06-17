@@ -2,10 +2,15 @@
 <kml xmlns="http://earth.google.com/kml/2.0">
 <Document>
 	<name>Tmap Position Control Sample</name>
+
 	<Placemark>
+	
 		<name>12가 9876</name>
+	
 		<number>80 %</number>
+	
 		<affiliation>종로구</affiliation>
+	
 		<Point>
 			<coordinates>126.9685264145542, 37.56806851568106</coordinates>
 			<distance>0</distance>
@@ -175,8 +180,31 @@
 			<distance>3</distance>
 			<speed>65</speed>
 			
+			<coordinates>126.98833318702138, 37.57118091294374</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+
+			<coordinates>126.98833318702138, 37.57118091394374</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+
+			<coordinates>126.98833318702138, 37.57118091494374</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+
+			<coordinates>126.98833318702138, 37.57118091594374</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
+			<coordinates>126.98833318702138, 37.57118091694374</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+			
 		</Point>
+
+
 	</Placemark>
 	
 </Document>
+
 </kml>

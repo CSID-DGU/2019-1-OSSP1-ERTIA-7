@@ -1,290 +1,636 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.icon">
-    <title>fe</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://api2.sktelecom.com/tmap/js?version=1&format=javascript&appKey="></script>
-    <script type="text/javascript">
+
+   <link
+   rel="icon"
+   href="<%= BASE_URL %>favicon.icon">
+
+    <title>
+      fe
+   </title>
+
+   <link
+   rel="stylesheet"
+   href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+   >
+
+   <link
+   rel="stylesheet"
+   href="https://fonts.googleapis.com/css?family=Material+Icons"
+   >
+
+   <script
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+   ></script>
+
+   <script
+   src="https://api2.sktelecom.com/tmap/js?version=1&format=javascript&appKey="
+   ></script>
+
+   <script
+   type="text/javascript"
+   >
+
   function initTmap(){
 
-         // 1. 지도 띄우기//http://tmapapi.sktelecom.com/web/usecase/sample.kml
+       // 1. 지도 띄우기//http://tmapapi.sktelecom.com/web/usecase/sample.kml
+
 map = new Tmap.Map({
-	div : 'map_div',
-	width : "100%",
-	height : "400px",
+   div : 'map_div',
+   width : "100%",
+   height : "400px",
+   //너비 전부 차지, 높이 400만큼
 });
+
 map.setCenter(new Tmap.LonLat("126.986072", "37.570028").transform("EPSG:4326", "EPSG:3857"), 14);
 //현재위치의 바로 이전위치를 그릴 레이어 생성
+//좌표 EPSG좌표계로 변환
 beforeMarkerLayer0 = new Tmap.Layer.Markers();
 //현재위치를 그릴 레이어 생성
 markerLayer0 = new Tmap.Layer.Markers();
 
-	// 2. 위치 조회
-	if(window.XMLHttpRequest){
+   // 2. 위치 조회
+   if(window.XMLHttpRequest)
+   {
            xhttp0=new XMLHttpRequest();
-       }else{
+       }
+      else
+      {
            xhttp0=new ActiveXObject("Microsoft.XMLDOM");
        }
 
-	xhttp0.open("GET","./sample.kml",false);
-	xhttp0.send();
+   xhttp0.open("GET","./sample.kml",false);
+   //링크말고 로컬에서 가져옴
+   //크롬 사용시 바로가기 뒤에  --disable-web-security
+   //--user-data-dir 추가 후 사용
+   xhttp0.send();
 
   var prtcl0 =  xhttp0.responseXML;
+  //받아온 xml파일 변수
   var markerLayer0 = new Tmap.Layer.Markers();
-	map.addLayer(markerLayer0);
-	var size = new Tmap.Size(24, 38);
-	var offset = new Tmap.Pixel(-(size.w / 2), -(size.h));
-	var maker0;
-	var popup0,popup20;
-	var prtclString0 = new XMLSerializer().serializeToString(prtcl0);//xml to String
-	xmlDoc0 = $.parseXML( prtclString0 ),
-	$xml0 = $( xmlDoc0 ),
+  //마커 레이어 생성
+
+   map.addLayer(markerLayer0);
+   //마커 표시할 레이어 추가
+   var size = new Tmap.Size(24, 38);
+   var offset = new Tmap.Pixel(-(size.w / 2), -(size.h));
+   var maker0;//첫번째 차가 표시 될 마커
+   var popup0,popup20;
+   //팝업
+   var prtclString0 = new XMLSerializer().serializeToString(prtcl0);
+   //xml 파일을 스트링으로 변환
+   xmlDoc0 = $.parseXML( prtclString0 ),
+   $xml0 = $( xmlDoc0 ),
+   //변환한 파일을 parse하기위한 코드
   $intRate0 = $xml0.find("Placemark");
+  //placemark라는 스트링을 찾음
 
 //현재위치를 그릴 레이어 생성
 markerLayer1 = new Tmap.Layer.Markers();
 
-	// 2. 위치 조회
+   //위치 조회
 
-  if(window.XMLHttpRequest){
+  if(window.XMLHttpRequest)
+  {
            xhttp1=new XMLHttpRequest();
-       }else{
+       }
+      else
+      {
            xhttp1=new ActiveXObject("Microsoft.XMLDOM");
        }
 
-	xhttp1.open("GET","./sample1.kml",false);
-	xhttp1.send();
-  var prtcl1 =  xhttp1.responseXML;
+   xhttp1.open("GET","./sample1.kml",false);
+   //두번째 차의 위치 정보 받아옴
+   xhttp1.send();
+     var prtcl1 =  xhttp1.responseXML;
+   //받아온 xml파일
+   var markerLayer1 = new Tmap.Layer.Markers();
+   map.addLayer(markerLayer1);
+   //마커 레이어 추가
 
-	var markerLayer1 = new Tmap.Layer.Markers();
-	map.addLayer(markerLayer1);
-	var maker1;
-	var popup1,popup21;
-	var prtclString1 = new XMLSerializer().serializeToString(prtcl1);//xml to String
-	xmlDoc1 = $.parseXML( prtclString1 ),
-	$xml1 = $( xmlDoc1 ),
+   var maker1;
+   //2번째 차 마커 변수
+   var popup1,popup21;
+   //차 정보 출력해 줄 팝업
+   var prtclString1 = new XMLSerializer().serializeToString(prtcl1);
+   //xml 파일을 스트링으로 변환
+   xmlDoc1 = $.parseXML( prtclString1 ),
+   $xml1 = $( xmlDoc1 ),
   $intRate1 = $xml1.find("Placemark");
+   //변경한 스트링을 placemark에서 잘라 파싱 시작
 
 //현재위치를 그릴 레이어 생성
 markerLayer2 = new Tmap.Layer.Markers();
 
-	// 2. 위치 조회
-	if(window.XMLHttpRequest){
+   //위치 조회
+   if(window.XMLHttpRequest)
+   {
            xhttp2=new XMLHttpRequest();
-       }else{
+       }
+      else
+      {
            xhttp2=new ActiveXObject("Microsoft.XMLDOM");
        }
 
-	xhttp2.open("GET","./sample2.kml",false);
-	xhttp2.send();
-  var prtcl2 =  xhttp2.responseXML;
+   xhttp2.open("GET","./sample2.kml",false);
+   xhttp2.send();
+   //위와 마찬가지로 3번째 차 정보를 받아옴
 
-	var markerLayer2 = new Tmap.Layer.Markers();
-	map.addLayer(markerLayer2);
-	var maker2;
-	var popup2,popup22;
-	var prtclString2= new XMLSerializer().serializeToString(prtcl2);//xml to String
-	xmlDoc2 = $.parseXML( prtclString2 ),
-	$xml2 = $( xmlDoc2 ),
-	$intRate2 = $xml2.find("Placemark");
+     var prtcl2 =  xhttp2.responseXML;
 
-	function myFunction0(cnt, checkLevel){
-		    $intRate0.each(function(index, element) {
-		    	var name0 = element.getElementsByTagName("name")[0].childNodes[0].nodeValue;
-		    	var number0 = element.getElementsByTagName("number")[0].childNodes[0].nodeValue;
-		    	var affiliation0 = element.getElementsByTagName("affiliation")[0].childNodes[0].nodeValue;
-		    	var distance0 = element.getElementsByTagName("distance")[cnt].childNodes[0].nodeValue;
-		    	var speed0 = element.getElementsByTagName("speed")[cnt].childNodes[0].nodeValue;
-		    	var content0 =
-					    	'<div class="wrap">' +
-			                '    <div class="info">' +
-			                '        <div class="title">' +
-			                '            '+name0 +
-			                '        </div>' +
-			                '        <div class="body">' +
-			                '            <div class="desc">' +
-			                '                <div><span>쓰레기양</span> '+number0+'</div>' +
-			                '                <div><span>소속지사</span> '+affiliation0+'</div>' +
-			                '                <div><span>운행거리</span> '+distance0+'km</div>' +
-			                '                <div><span>현재속도</span> '+speed0+'km/h</div>' +
-			                '            </div>' +
-			                '        </div>' +
-			                '    </div>' +
-			                '</div>';
-		    	var point0 = element.getElementsByTagName("coordinates")[cnt].childNodes[0].nodeValue.split(',');
-				console.log(point0[0]+","+point0[1]);
-				var icon0 = new Tmap.Icon('http://tmapapi.sktelecom.com/resources/images/common/pin_car.png',size, offset);
-				var lonlat0 = new Tmap.LonLat(point0[0],point0[1]).transform("EPSG:4326", "EPSG:3857");
-				console.log(lonlat0.toShortString());
-				marker0 = new Tmap.Marker(lonlat0, icon0);
-				markerLayer0.addMarker(marker0);
+   var markerLayer2 = new Tmap.Layer.Markers();
+   map.addLayer(markerLayer2);
+   //마커 레이어 생성
 
-				popup0 = new Tmap.Popup("p10", lonlat0, new Tmap.Size(140, 140), content0, true);//마우스 오버 팝업
-				popup20 = new Tmap.Popup("p20", lonlat0, new Tmap.Size(140, 140), content0, true);//마우스 클릭 팝업
-				map.addPopup(popup0);
-				map.addPopup(popup20);
-				popup0.hide();
-        		popup20.hide();
+   var maker2;
+   //3번째 차 마커
+   var popup2,popup22;
+   //차 정보 출력해줄 팝업창
 
-				//마커 이벤트등록
-			    marker0.events.register("mouseover", popup0, onOverMarker);
-			    function onOverMarker(evt) {
-			      this.show(); //마커에 마우스가 오버되었을 때 팝업이 보입니다.
-			    }
-			    marker0.events.register("mouseout", popup0, onOutMarker);
-			    function onOutMarker(evt) {
-			      this.hide(); //마커에 마우스가 없을땐 팝업이 숨겨집니다.
-			    }
-			    marker0.events.register("click", popup20, onClickMarker);
-			    function onClickMarker(evt) {
-			    	this.show(); //마커에 마우스가 클릭되었을 때 팝업이 보입니다.
-				}
+   var prtclString2= new XMLSerializer().serializeToString(prtcl2);
+   //xml파일 스트링으로 변환
+
+   xmlDoc2 = $.parseXML( prtclString2 ),
+   $xml2 = $( xmlDoc2 ),
+   $intRate2 = $xml2.find("Placemark");
+    //placemaker 부터 파싱 시작
+
+   markerLayer3 = new Tmap.Layer.Markers();
+
+   //위치 조회
+   if(window.XMLHttpRequest)
+   {
+           xhttp3=new XMLHttpRequest();
+       }
+      else
+      {
+           xhttp3=new ActiveXObject("Microsoft.XMLDOM");
+       }
+
+   xhttp3.open("GET","./sample3.kml",false);
+   xhttp3.send();
+   //위와 마찬가지로 3번째 차 정보를 받아옴
+
+     var prtcl3 =  xhttp3.responseXML;
+
+   var markerLayer3 = new Tmap.Layer.Markers();
+   map.addLayer(markerLayer3);
+   //마커 레이어 생성
+
+   var maker3;
+   //3번째 차 마커
+   var popup3,popup23;
+   //차 정보 출력해줄 팝업창
+
+   var prtclString3= new XMLSerializer().serializeToString(prtcl3);
+   //xml파일 스트링으로 변환
+
+   xmlDoc3 = $.parseXML( prtclString3 ),
+   $xml3 = $( xmlDoc3 ),
+   $intRate3 = $xml3.find("Placemark");
+    //placemaker 부터 파싱 시작
+
+
+   function myFunction0(cnt, checkLevel)
+   {
+          $intRate0.each(function(index, element)
+         {
+            //placemark를 통해 파싱한 부분을 계속 사용
+             var name0 = element.getElementsByTagName("name")[0].childNodes[0].nodeValue;
+             var number0 = element.getElementsByTagName("number")[0].childNodes[0].nodeValue;
+             var affiliation0 = element.getElementsByTagName("affiliation")[0].childNodes[0].nodeValue;
+             var distance0 = element.getElementsByTagName("distance")[cnt].childNodes[0].nodeValue;
+             var speed0 = element.getElementsByTagName("speed")[cnt].childNodes[0].nodeValue;
+            //각각 kml파일을 name, number, affiliation... 을 통해서
+            //나눈 스트링을 변수에 입력
+
+             var content0 =
+            //차량 정보에 나올 박스에 대해 나올 내용 입력
+                      '<div class="wrap">' +
+                         '    <div class="info">' +
+                         '        <div class="title">' +
+                         '            '+name0 +
+                         '        </div>' +
+                         '        <div class="body">' +
+                         '            <div class="desc">' +
+                         '                <div><span>쓰레기양</span> '
+                                    +number0+
+                     '            </div>' +
+                         '                <div><span>소속지사</span> '
+                                    +affiliation0+
+                     '            </div>' +
+                         '                <div><span>운행거리</span> '
+                                    +distance0+
+                     '            km'
+                     '            </div>' +
+                         '                <div><span>현재속도</span> '
+                                    +speed0+
+                     '            km/h'
+                     '            </div>' +
+                         '            </div>' +
+                         '        </div>' +
+                         '    </div>' +
+                         '</div>';
+             var point0 = element.getElementsByTagName("coordinates")[cnt].childNodes[0].nodeValue.split(',');
+            console.log(point0[0]+","+point0[1]);
+            // 쉼표를 통해 위도와 경도를 나눠줌
+
+
+            var icon0 = new Tmap.Icon('http://tmapapi.sktelecom.com/resources/images/common/pin_car.png',size, offset);
+            //티맵의 아이콘 받아옴
+
+            var lonlat0 = new Tmap.LonLat(point0[0],point0[1]).transform("EPSG:4326", "EPSG:3857");
+            //콤마로 나눈 경도 위도를 마커 좌표로 설정
+
+            console.log(lonlat0.toShortString());
+            //확인을 이해 콘솔에 찍어줌
+
+            marker0 = new Tmap.Marker(lonlat0, icon0);
+            markerLayer0.addMarker(marker0);
+            //받아온 정보에 맞춰서 마커 추가
+
+            popup0 = new Tmap.Popup("p10", lonlat0, new Tmap.Size(140, 140), content0, true);
+            //마우스 오버 팝업
+            popup20 = new Tmap.Popup("p20", lonlat0, new Tmap.Size(140, 140), content0, true);
+            //마우스 클릭 팝업
+
+            map.addPopup(popup0);
+            map.addPopup(popup20);
+            //팝업 표시를 위해 add
+
+            popup0.hide();
+              popup20.hide();
+
+            //마커 이벤트등록
+             marker0.events.register("mouseover", popup0, onOverMarker);
+             function onOverMarker(evt)
+            {
+               this.show();
+              //마커에 마우스가 오버되었을 때 팝업이 보임.
+             }
+             marker0.events.register("mouseout", popup0, onOutMarker);
+             function onOutMarker(evt)
+            {
+               this.hide();
+              //마커에 마우스가 없을땐 팝업이 숨겨짐.
+             }
+             marker0.events.register("click", popup20, onClickMarker);
+             function onClickMarker(evt)
+            {
+                this.show();
+               //마커에 마우스가 클릭되었을 때 팝업이 보임.
+            }
         });
-	    }
-			function myFunction1(cnt, checkLevel){
-		    $intRate1.each(function(index, element) {
-		    	var name1 = element.getElementsByTagName("name")[0].childNodes[0].nodeValue;
-		    	var number1 = element.getElementsByTagName("number")[0].childNodes[0].nodeValue;
-		    	var affiliation1 = element.getElementsByTagName("affiliation")[0].childNodes[0].nodeValue;
-		    	var distance1 = element.getElementsByTagName("distance")[cnt].childNodes[0].nodeValue;
-		    	var speed1 = element.getElementsByTagName("speed")[cnt].childNodes[0].nodeValue;
-		    	var content1 =
-					    	'<div class="wrap">' +
-			                '    <div class="info">' +
-			                '        <div class="title">' +
-			                '            '+name1 +
-			                '        </div>' +
-			                '        <div class="body">' +
-			                '            <div class="desc">' +
-			                '                <div><span>쓰레기양</span> '+number1+'</div>' +
-			                '                <div><span>소속지사</span> '+affiliation1+'</div>' +
-			                '                <div><span>운행거리</span> '+distance1+'km</div>' +
-			                '                <div><span>현재속도</span> '+speed1+'km/h</div>' +
-			                '            </div>' +
-			                '        </div>' +
-			                '    </div>' +
-			                '</div>';
-		    	var point1 = element.getElementsByTagName("coordinates")[cnt].childNodes[0].nodeValue.split(',');
-				console.log(point1[0]+","+point1[1]);
-				var icon1 = new Tmap.Icon('http://tmapapi.sktelecom.com/resources/images/common/pin_car.png',size, offset);
-				var lonlat1 = new Tmap.LonLat(point1[0],point1[1]).transform("EPSG:4326", "EPSG:3857");
-				console.log(lonlat1.toShortString());
-				marker1 = new Tmap.Marker(lonlat1, icon1);
-				markerLayer1.addMarker(marker1);
 
-				popup1 = new Tmap.Popup("p10", lonlat1, new Tmap.Size(140, 140), content1, true);//마우스 오버 팝업
-				popup21 = new Tmap.Popup("p20", lonlat1, new Tmap.Size(140, 140), content1, true);//마우스 클릭 팝업
-				map.addPopup(popup1);
-				map.addPopup(popup21);
-				popup1.hide();
-       		    popup21.hide();
+       }
 
-				//마커 이벤트등록
-			    marker1.events.register("mouseover", popup1, onOverMarker);
-			    function onOverMarker(evt) {
-			      this.show(); //마커에 마우스가 오버되었을 때 팝업이 보입니다.
-			    }
-			    marker1.events.register("mouseout", popup1, onOutMarker);
-			    function onOutMarker(evt) {
-			      this.hide(); //마커에 마우스가 없을땐 팝업이 숨겨집니다.
-			    }
-			    marker1.events.register("click", popup21, onClickMarker);
-			    function onClickMarker(evt) {
-			    	this.show(); //마커에 마우스가 클릭되었을 때 팝업이 보입니다.
-				}
+         function myFunction1(cnt, checkLevel)
+         {
+          $intRate1.each(function(index, element)
+         {
+             var name1 = element.getElementsByTagName("name")[0].childNodes[0].nodeValue;
+             var number1 = element.getElementsByTagName("number")[0].childNodes[0].nodeValue;
+             var affiliation1 = element.getElementsByTagName("affiliation")[0].childNodes[0].nodeValue;
+             var distance1 = element.getElementsByTagName("distance")[cnt].childNodes[0].nodeValue;
+             var speed1 = element.getElementsByTagName("speed")[cnt].childNodes[0].nodeValue;
+
+             var content1 =
+
+            '<div class="wrap">' +
+                         '    <div class="info">' +
+                         '        <div class="title">' +
+                         '            '+name1 +
+                         '        </div>' +
+                         '        <div class="body">' +
+                         '            <div class="desc">' +
+                         '                <div><span>쓰레기양</span> '
+                                    +number1+
+                     '            </div>' +
+                         '                <div><span>소속지사</span> '
+                                    +affiliation1+
+                     '            </div>' +
+                         '                <div><span>운행거리</span> '
+                                    +distance1+
+                     '            km'
+                     '            </div>' +
+                         '                <div><span>현재속도</span> '
+                                    +speed1+
+                     '            km/h'
+                     '            </div>' +
+                         '            </div>' +
+                         '        </div>' +
+                         '    </div>' +
+                         '</div>';
+
+
+             var point1 = element.getElementsByTagName("coordinates")[cnt].childNodes[0].nodeValue.split(',');
+            console.log(point1[0]+","+point1[1]);
+            //쉼표를 기준으로 위도와 경도를 나눠줌
+
+            var icon1 = new Tmap.Icon('http://tmapapi.sktelecom.com/resources/images/common/pin_car.png',size, offset);
+            var lonlat1 = new Tmap.LonLat(point1[0],point1[1]).transform("EPSG:4326", "EPSG:3857");
+            //아이콘을 받아온 후 나눈 경도 위도 입력해줌
+
+            console.log(lonlat1.toShortString());
+            marker1 = new Tmap.Marker(lonlat1, icon1);
+            markerLayer1.addMarker(marker1);
+            //마커 콘솔에 찍고 마커 추가
+
+            popup1 = new Tmap.Popup("p10", lonlat1, new Tmap.Size(140, 140), content1, true);
+            //마우스 오버 팝업
+            popup21 = new Tmap.Popup("p20", lonlat1, new Tmap.Size(140, 140), content1, true);
+            //마우스 클릭 팝업
+            map.addPopup(popup1);
+            map.addPopup(popup21);
+
+            popup1.hide();
+                 popup21.hide();
+
+            //마커 이벤트등록
+             marker1.events.register("mouseover", popup1, onOverMarker);
+
+             function onOverMarker(evt)
+            {
+               this.show();
+              //마커에 마우스가 오버되었을 때 팝업이 보임
+             }
+             marker1.events.register("mouseout", popup1, onOutMarker);
+             function onOutMarker(evt)
+            {
+               this.hide();
+              //마커에 마우스가 없을땐 팝업이 숨겨짐
+             }
+             marker1.events.register("click", popup21, onClickMarker);
+
+
+             function onClickMarker(evt)
+            {
+                this.show();
+               //마커에 마우스가 클릭되었을 때 팝업이 보임
+            }
         });
       }
+
       function myFunction2(cnt, checkLevel){
-		    $intRate2.each(function(index, element) {
-		    	var name2 = element.getElementsByTagName("name")[0].childNodes[0].nodeValue;
-		    	var number2 = element.getElementsByTagName("number")[0].childNodes[0].nodeValue;
-		    	var affiliation2 = element.getElementsByTagName("affiliation")[0].childNodes[0].nodeValue;
-		    	var distance2 = element.getElementsByTagName("distance")[cnt].childNodes[0].nodeValue;
-		    	var speed2 = element.getElementsByTagName("speed")[cnt].childNodes[0].nodeValue;
-		    	var content2 =
-					    	'<div class="wrap">' +
-			                '    <div class="info">' +
-			                '        <div class="title">' +
-			                '            '+name2 +
-			                '        </div>' +
-			                '        <div class="body">' +
-			                '            <div class="desc">' +
-			                '                <div><span>쓰레기양</span> '+number2+'</div>' +
-			                '                <div><span>소속지사</span> '+affiliation2+'</div>' +
-			                '                <div><span>운행거리</span> '+distance2+'km</div>' +
-			                '                <div><span>현재속도</span> '+speed2+'km/h</div>' +
-			                '            </div>' +
-			                '        </div>' +
-			                '    </div>' +
-			                '</div>';
-		    	var point2 = element.getElementsByTagName("coordinates")[cnt].childNodes[0].nodeValue.split(',');
-				console.log(point2[0]+","+point2[1]);
-				var icon2 = new Tmap.Icon('http://tmapapi.sktelecom.com/resources/images/common/pin_car.png',size, offset);
-				var lonlat2 = new Tmap.LonLat(point2[0],point2[1]).transform("EPSG:4326", "EPSG:3857");
-				console.log(lonlat2.toShortString());
-				marker2 = new Tmap.Marker(lonlat2, icon2);
-				markerLayer2.addMarker(marker2);
+          $intRate2.each(function(index, element) {
 
-				popup2 = new Tmap.Popup("p10", lonlat2, new Tmap.Size(140, 140), content2, true);//마우스 오버 팝업
-				popup22 = new Tmap.Popup("p20", lonlat2, new Tmap.Size(140, 140), content2, true);//마우스 클릭 팝업
-				map.addPopup(popup2);
-				map.addPopup(popup22);
-				popup2.hide();
-			    popup22.hide();
+             var name2 = element.getElementsByTagName("name")[0].childNodes[0].nodeValue;
+             var number2 = element.getElementsByTagName("number")[0].childNodes[0].nodeValue;
+             var affiliation2 = element.getElementsByTagName("affiliation")[0].childNodes[0].nodeValue;
+             var distance2 = element.getElementsByTagName("distance")[cnt].childNodes[0].nodeValue;
+             var speed2 = element.getElementsByTagName("speed")[cnt].childNodes[0].nodeValue;
 
-				//마커 이벤트등록
-			    marker2.events.register("mouseover", popup2, onOverMarker);
-			    function onOverMarker(evt) {
-			      this.show(); //마커에 마우스가 오버되었을 때 팝업이 보입니다.
-			    }
-			    marker2.events.register("mouseout", popup2, onOutMarker);
-			    function onOutMarker(evt) {
-			      this.hide(); //마커에 마우스가 없을땐 팝업이 숨겨집니다.
-			    }
-			    marker2.events.register("click", popup22, onClickMarker);
-			    function onClickMarker(evt) {
-			    	this.show(); //마커에 마우스가 클릭되었을 때 팝업이 보입니다.
-				}
+             var content2 =
+            '<div class="wrap">' +
+                         '    <div class="info">' +
+                         '        <div class="title">' +
+                         '            '+name2 +
+                         '        </div>' +
+                         '        <div class="body">' +
+                         '            <div class="desc">' +
+                         '                <div><span>쓰레기양</span> '
+                                    +number2+
+                     '            </div>' +
+                         '                <div><span>소속지사</span> '
+                                    +affiliation2+
+                     '            </div>' +
+                         '                <div><span>운행거리</span> '
+                                    +distance2+
+                     '            km'
+                     '            </div>' +
+                         '                <div><span>현재속도</span> '
+                                    +speed2+
+                     '            km/h'
+                     '            </div>' +
+                         '            </div>' +
+                         '        </div>' +
+                         '    </div>' +
+                         '</div>';
+
+             var point2 = element.getElementsByTagName("coordinates")[cnt].childNodes[0].nodeValue.split(',');
+            console.log(point2[0]+","+point2[1]);
+            //콤마 기준으로 경도 위도 나눠줌
+
+            var icon2 = new Tmap.Icon('http://tmapapi.sktelecom.com/resources/images/common/pin_car.png',size, offset);
+            var lonlat2 = new Tmap.LonLat(point2[0],point2[1]).transform("EPSG:4326", "EPSG:3857");
+            //나눈 경도 위도로 마커에 입력
+
+            console.log(lonlat2.toShortString());
+            marker2 = new Tmap.Marker(lonlat2, icon2);
+            markerLayer2.addMarker(marker2);
+            //마커 추가
+
+            popup2 = new Tmap.Popup("p10", lonlat2, new Tmap.Size(140, 140), content2, true);
+            //마우스 오버 팝업
+            popup22 = new Tmap.Popup("p20", lonlat2, new Tmap.Size(140, 140), content2, true);
+            //마우스 클릭 팝업
+            map.addPopup(popup2);
+            map.addPopup(popup22);
+
+            popup2.hide();
+             popup22.hide();
+
+            //마커 이벤트등록
+             marker2.events.register("mouseover", popup2, onOverMarker);
+
+             function onOverMarker(evt)
+            {
+               this.show();
+              //마커에 마우스가 오버되었을 때 팝업이 보임
+             }
+             marker2.events.register("mouseout", popup2, onOutMarker);
+
+             function onOutMarker(evt)
+            {
+               this.hide(); //마커에 마우스가 없을땐 팝업이 숨겨짐
+             }
+             marker2.events.register("click", popup22, onClickMarker);
+
+             function onClickMarker(evt)
+            {
+                this.show(); //마커에 마우스가 클릭되었을 때 팝업이 보임
+            }
+
         });
-	    }
-   	      myFunction0(0);
-    	  myFunction1(0);
-	 	  myFunction2(0);
-// 3. 위치 관제 시작
-var cnt = 1;
-	myVar = setInterval(function(){
-		var count = $xml0.find("Placemark")[0].getElementsByTagName("coordinates").length;
-		if(cnt == count){
-			cnt = 0;
-			//리셋
-	  markerLayer0.clearMarkers();
-      markerLayer1.clearMarkers();
-      markerLayer2.clearMarkers();
 
+      }
+
+      function myFunction3(cnt, checkLevel){
+          $intRate3.each(function(index, element) {
+
+             var name3 = element.getElementsByTagName("name")[0].childNodes[0].nodeValue;
+             var number3 = element.getElementsByTagName("number")[0].childNodes[0].nodeValue;
+             var affiliation3 = element.getElementsByTagName("affiliation")[0].childNodes[0].nodeValue;
+             var distance3 = element.getElementsByTagName("distance")[cnt].childNodes[0].nodeValue;
+             var speed3 = element.getElementsByTagName("speed")[cnt].childNodes[0].nodeValue;
+
+             var content3 =
+            '<div class="wrap">' +
+                         '    <div class="info">' +
+                         '        <div class="title">' +
+                         '            '+name3 +
+                         '        </div>' +
+                         '        <div class="body">' +
+                         '            <div class="desc">' +
+                         '                <div><span>쓰레기양</span> '
+                                    +number3+
+                     '            </div>' +
+                         '                <div><span>소속지사</span> '
+                                    +affiliation3+
+                     '            </div>' +
+                         '                <div><span>운행거리</span> '
+                                    +distance3+
+                     '            km'
+                     '            </div>' +
+                         '                <div><span>현재속도</span> '
+                                    +speed3+
+                     '            km/h'
+                     '            </div>' +
+                         '            </div>' +
+                         '        </div>' +
+                         '    </div>' +
+                         '</div>';
+
+             var point3 = element.getElementsByTagName("coordinates")[cnt].childNodes[0].nodeValue.split(',');
+            console.log(point3[0]+","+point3[1]);
+            //콤마 기준으로 경도 위도 나눠줌
+
+            var icon3 = new Tmap.Icon('http://tmapapi.sktelecom.com/resources/images/common/pin_car.png',size, offset);
+            var lonlat3 = new Tmap.LonLat(point3[0],point3[1]).transform("EPSG:4326", "EPSG:3857");
+            //나눈 경도 위도로 마커에 입력
+
+            console.log(lonlat3.toShortString());
+            marker3 = new Tmap.Marker(lonlat3, icon3);
+            markerLayer3.addMarker(marker3);
+            //마커 추가
+
+            popup3 = new Tmap.Popup("p10", lonlat3, new Tmap.Size(140, 140), content3, true);
+            //마우스 오버 팝업
+            popup23 = new Tmap.Popup("p20", lonlat3, new Tmap.Size(140, 140), content3, true);
+            //마우스 클릭 팝업
+            map.addPopup(popup3);
+            map.addPopup(popup23);
+
+            popup3.hide();
+             popup23.hide();
+
+            //마커 이벤트등록
+             marker3.events.register("mouseover", popup3, onOverMarker);
+
+             function onOverMarker(evt)
+            {
+               this.show();
+              //마커에 마우스가 오버되었을 때 팝업이 보임
+             }
+             marker3.events.register("mouseout", popup3, onOutMarker);
+
+             function onOutMarker(evt)
+            {
+               this.hide(); //마커에 마우스가 없을땐 팝업이 숨겨짐
+             }
+             marker3.events.register("click", popup23, onClickMarker);
+
+             function onClickMarker(evt)
+            {
+                this.show(); //마커에 마우스가 클릭되었을 때 팝업이 보임
+            }
+
+        });
+
+       }
+
+            myFunction0(0);
+      //1번차 초기화
+
+         myFunction1(0);
+      //2번차 초기화
+
+         myFunction2(0);
+
+      //3번차 초기화
+
+        myFunction3(0);
+
+      //4번차 초기화
+
+
+// 3. 위치 관제 시작
+
+var cnt = 1;
+//카운트 해줄 변수
+
+   myVar = setInterval(function()
+   {
+      //좌표 찍어주고 초기화 해줄 반복문 실행하는 함수
+
+      var count = $xml0.find("Placemark")[0].getElementsByTagName("coordinates").length;
+      //좌표 길이 만큼 카운트 받아옴
+
+      if(cnt == count)
+      {
+         cnt = 0;
+         //리셋
+     markerLayer0.clearMarkers();
+
+     markerLayer1.clearMarkers();
+
+     markerLayer2.clearMarkers();
+
+     markerLayer3.clearMarkers();
+
+   //처음 부터 끝까지 읽었으면
+   //마커 레이어를 리셋
     }
     markerLayer0.clearMarkers();
+   popup0.hide();
+   //지나간 마커 삭제
+   //나와 있는 팝업 남아있는것 없애기 위해
+   //hide()처리
     myFunction0(cnt);
+   //1 증가해서 반복
     markerLayer1.clearMarkers();
+   popup1.hide();
+
     myFunction1(cnt);
+
     markerLayer2.clearMarkers();
-    myFunction2(cnt);
-    cnt++;
-	}, 1000);
-				 }
+   popup2.hide();
+
+   myFunction2(cnt);
+
+   markerLayer3.clearMarkers();
+   popup3.hide();
+
+    myFunction3(cnt);
+
+   cnt++;
+   //3개의 쓰레기 차 모두 동일한 방법으로
+   //카운트 1증가할때마다 마커 찍어주고
+   //전에 있던 마커 삭제
+   },
+   1000);
+
+}
+
   function url(){
 
   }
 </script>
   </head>
   <body onload="initTmap()">
-    <div id="app"></div>
-    <div id="map_div"></div>
+   <!-- 실행시 initTmap 함수 실행해줌 -->
+
+    <div id="app">
+
+   </div>
+    <div id="map_div">
+
+   </div>
     <!-- built files will be auto injected -->
   </body>
 </html>

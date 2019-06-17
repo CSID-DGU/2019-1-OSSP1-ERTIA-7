@@ -11,6 +11,7 @@
 		<affiliation>중구</affiliation>
 
 		<Point>
+		
 			<coordinates>126.99750018119812, 37.564294861420584</coordinates>
 			<distance>0</distance>
 			<speed>60</speed>
@@ -178,8 +179,36 @@
 			<coordinates>127.00241518119812, 37.561334861420584</coordinates>
 			<distance>3</distance>
 			<speed>65</speed>
+
+			<coordinates>127.00241518119812, 37.561534861420584</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+
+			<coordinates>127.00241518119812, 37.561734861420584</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
 			
+			<coordinates>127.00241518119812, 37.561734861520584</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+
+			<coordinates>127.00241518119812, 37.561734861620584</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+
+			<coordinates>127.00241518119812, 37.561734861720584</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+
+			<coordinates>127.00241518119812, 37.561734861820584</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
+
+			<coordinates>127.00241518119812, 37.561734861920584</coordinates>
+			<distance>3</distance>
+			<speed>65</speed>
 		</Point>
+		
 	</Placemark>
 	
 	

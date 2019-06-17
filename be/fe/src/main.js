@@ -9,12 +9,14 @@ import VueFire from 'vuefire'
 
 Vue.config.productionTip = false
 
+//Vue routing
 new Vue({
   router,
   store,
   render: h => h(App)
 }).$mount('#app')
 
+//Googleapi config
 Vue.use(VueGoogleMaps, {
   load: {
 
