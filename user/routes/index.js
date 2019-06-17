@@ -41,11 +41,13 @@ router.post('/', function(req, res, next) {
      var data = [];
      var datasize = 0;
      keys.forEach(function(key){
+       if(childData[key].amount>=80){
        var title = childData[key].title;
        var Lat = childData[key].lat;
        var Long = childData[key].long;
        data.push({name: title, lat: Lat, long: Long});
        datasize=datasize+1;
+       }
 
      });
      console.log('here!!!');
